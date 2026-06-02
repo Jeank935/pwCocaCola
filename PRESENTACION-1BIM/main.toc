@@ -21,4 +21,4 @@
 \contentsline {subsection}{\numberline {2.6.1}Preguntas y Respuestas sobre el Diagrama}{12}{subsection.2.6.1}%
 \contentsline {section}{\numberline {2.7}Diagrama de Componentes}{14}{section.2.7}%
 \contentsline {section}{\numberline {2.8}Arquitectura Lógica y Física (Propuesta)}{15}{section.2.8}%
-\contentsline {section}{\numberline {2.9}Prototipo de Pantallas No Funcional}{16}{section.2.9}%
+\contentsline {section}{\numberline {2.9}Prototipo de Pantallas No Funcional}{17}{section.2.9}%
