@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  1 JUN 2026 19:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.6.1)  1 JUN 2026 22:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -501,6 +501,17 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@count@id=\count323
 \enitdp@description=\count324
 )
+(C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count325
+\float@exts=\toks39
+\float@box=\box74
+\@float@everytoks=\toks40
+\@floatcapt=\box75
+)
+(C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/latex/setspace\setspace.sty
+Package: setspace 2022/12/04 v6.7b set line spacing
+)
 (C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 
@@ -518,7 +529,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip72
 \f@nch@widthC=\skip73
 \f@nch@widthR=\skip74
-\@temptokenb=\toks39
+\@temptokenb=\toks41
 )
 (C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
@@ -562,18 +573,18 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 (C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count325
+\c@section@level=\count326
 ) (C:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count326
+\etb@tempcnta=\count327
 )
 (C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
 \@linkdim=\dimen293
-\Hy@linkcounter=\count327
-\Hy@pagecounter=\count328
+\Hy@linkcounter=\count328
+\Hy@pagecounter=\count329
 (C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -582,7 +593,7 @@ Now handling font encoding PD1 ...
 (C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count329
+\Hy@SavedSpaceFactor=\count330
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
@@ -597,7 +608,7 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count330
+\c@Hy@tempcnt=\count331
 
 (C:\Program Files\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
@@ -614,7 +625,7 @@ y
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count331
+\Fld@menulength=\count332
 \Field@Width=\dimen295
 \Fld@charsize=\dimen296
 Package hyperref Info: Hyper figures OFF on input line 6078.
@@ -624,15 +635,15 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count332
-\c@Item=\count333
-\c@Hfootnote=\count334
+\Hy@abspage=\count333
+\c@Item=\count334
+\c@Hfootnote=\count335
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count335
-\c@bookmark@seq@number=\count336
+\Fld@listcount=\count336
+\c@bookmark@seq@number=\count337
 
 (C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/latex/rerunfilecheck\rerunfilech
 eck.sty
@@ -649,12 +660,12 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 (C:\Users\ASUS FLOW\AppData\Roaming\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box74
+\ttl@box=\box76
 \beforetitleunit=\skip76
 \aftertitleunit=\skip77
 \ttl@plus=\dimen297
 \ttl@minus=\dimen298
-\ttl@toksa=\toks40
+\ttl@toksa=\toks42
 \titlewidth=\dimen299
 \titlewidthlast=\dimen300
 \titlewidthfirst=\dimen301
@@ -677,8 +688,9 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@hangindent=\dimen309
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count337
-\c@continuedfloat=\count338
+\c@caption@flags=\count338
+\c@continuedfloat=\count339
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
 
@@ -687,7 +699,7 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 ))
 (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count339
+\l__color_backend_stack_int=\count340
 ) (main.aux
 LaTeX Info: Redefining \. on input line 7.
 LaTeX Info: Redefining \% on input line 7.
@@ -696,26 +708,26 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 99.
-LaTeX Font Info:    ... okay on input line 99.
-LaTeX Info: Redefining \. on input line 99.
-LaTeX Info: Redefining \% on input line 99.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Info: Redefining \. on input line 101.
+LaTeX Info: Redefining \% on input line 101.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -753,17 +765,17 @@ LaTeX Info: Redefining \% on input line 99.
 
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count340
+\scratchcounter=\count341
 \scratchdimen=\dimen310
-\scratchbox=\box75
-\nofMPsegments=\count341
-\nofMParguments=\count342
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count343
+\scratchbox=\box77
+\nofMPsegments=\count342
+\nofMParguments=\count343
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count344
 \MPscratchDim=\dimen311
-\MPnumerator=\count344
-\makeMPintoPDFobject=\count345
-\everyMPtoPDFconversion=\toks42
+\MPnumerator=\count345
+\makeMPintoPDFobject=\count346
+\everyMPtoPDFconversion=\toks44
 ) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -772,7 +784,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 99.
+Package hyperref Info: Link coloring OFF on input line 101.
  (main.out)
 (main.out)
 \@outlinefile=\write4
@@ -780,31 +792,31 @@ Package hyperref Info: Link coloring OFF on input line 99.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<logo.png, id=122, 269.005pt x 400.49625pt>
+<logo.png, id=98, 269.005pt x 400.49625pt>
 File: logo.png Graphic file (type png)
 <use logo.png>
-Package pdftex.def Info: logo.png  used on input line 108.
+Package pdftex.def Info: logo.png  used on input line 111.
 (pdftex.def)             Requested size: 66.88576pt x 99.58464pt.
 
 
 LaTeX Font Warning: Font shape `T1/cmr/m/n' in size <26> not available
-(Font)              size <24.88> substituted on input line 114.
+(Font)              size <24.88> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `T1/cmr/bx/n' in size <26> not available
-(Font)              size <24.88> substituted on input line 114.
+(Font)              size <24.88> substituted on input line 117.
 
 
 LaTeX Font Warning: Font shape `T1/cmr/m/n' in size <15> not available
-(Font)              size <14.4> substituted on input line 115.
+(Font)              size <14.4> substituted on input line 118.
 
 
 LaTeX Font Warning: Font shape `T1/cmr/m/n' in size <20> not available
-(Font)              size <20.74> substituted on input line 120.
+(Font)              size <20.74> substituted on input line 123.
 
 
 LaTeX Font Warning: Font shape `T1/cmr/bx/n' in size <20> not available
-(Font)              size <20.74> substituted on input line 120.
+(Font)              size <20.74> substituted on input line 123.
 
 [1
 
@@ -827,46 +839,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.143 \newpage
+l.146 \newpage
                [1
 
 ]
 Cap\'{\i }tulo 1.
 [2
-
-]
-Cap\'{\i }tulo 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 223--223
-[]|\T1/cmr/bx/n/12 Conectividad
- []
-
-
-Underfull \hbox (badness 1360) in paragraph at lines 223--223
-[]|\T1/cmr/m/n/12 Zonas ru-ra-les o se-mi-ur-ba-nas
- []
-
-
-Underfull \hbox (badness 1789) in paragraph at lines 223--223
-[]|\T1/cmr/m/n/12 Programa de tran-si-ción gra-
- []
-
-
-Overfull \hbox (7.24335pt too wide) in paragraph at lines 256--256
-[]|\T1/cmr/m/n/12 Administración| 
- []
-
-
-Overfull \hbox (7.24335pt too wide) in paragraph at lines 258--258
-[]|\T1/cmr/m/n/12 Administración| 
- []
-
-
-Overfull \hbox (7.24335pt too wide) in paragraph at lines 260--260
-[]|\T1/cmr/m/n/12 Administración| 
- []
-
-[3
 
 ]
 
@@ -876,7 +854,42 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[4]
+[3]
+Cap\'{\i }tulo 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 226--226
+[]|\T1/cmr/bx/n/12 Conectividad
+ []
+
+
+Underfull \hbox (badness 1360) in paragraph at lines 226--226
+[]|\T1/cmr/m/n/12 Zonas ru-ra-les o se-mi-ur-ba-nas
+ []
+
+
+Underfull \hbox (badness 1789) in paragraph at lines 226--226
+[]|\T1/cmr/m/n/12 Programa de tran-si-ción gra-
+ []
+
+
+Overfull \hbox (7.24335pt too wide) in paragraph at lines 259--259
+[]|\T1/cmr/m/n/12 Administración| 
+ []
+
+
+Overfull \hbox (7.24335pt too wide) in paragraph at lines 261--261
+[]|\T1/cmr/m/n/12 Administración| 
+ []
+
+
+Overfull \hbox (7.24335pt too wide) in paragraph at lines 263--263
+[]|\T1/cmr/m/n/12 Administración| 
+ []
+
+[4
+
+]
+ignored error: Infinite glue shrinkage found in box being split
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -885,25 +898,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [5]
-Underfull \hbox (badness 8056) in paragraph at lines 354--354
-[]|\T1/cmr/bx/n/12 Comercio Es-tán-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--354
-[]|\T1/cmr/bx/n/12 Comercio Pre-fe-
- []
-
-
-Underfull \hbox (badness 1803) in paragraph at lines 354--354
-[]|\T1/cmr/m/n/12 Prioridad de en-tre-ga, des-
- []
-
-
-Underfull \hbox (badness 4108) in paragraph at lines 396--396
-[]|\T1/cmr/m/n/12 Panel con re-por-tes, fil-tros y ex-por-ta-ción
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -920,6 +914,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [7]
+Underfull \hbox (badness 8056) in paragraph at lines 357--357
+[]|\T1/cmr/bx/n/12 Comercio Es-tán-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 357--357
+[]|\T1/cmr/bx/n/12 Comercio Pre-fe-
+ []
+
+
+Underfull \hbox (badness 1803) in paragraph at lines 357--357
+[]|\T1/cmr/m/n/12 Prioridad de en-tre-ga, des-
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -927,7 +935,103 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[8] (main.aux
+[8]
+Underfull \hbox (badness 4108) in paragraph at lines 399--399
+[]|\T1/cmr/m/n/12 Panel con re-por-tes, fil-tros y ex-por-ta-ción
+ []
+
+<entidad-relacion.jpeg, id=178, 1606.0pt x 963.6pt>
+File: entidad-relacion.jpeg Graphic file (type jpg)
+<use entidad-relacion.jpeg>
+Package pdftex.def Info: entidad-relacion.jpeg  used on input line 408.
+(pdftex.def)             Requested size: 374.86775pt x 224.91689pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[9]
+<logica.jpeg, id=184, 800.9925pt x 1606.0pt>
+File: logica.jpeg Graphic file (type jpg)
+<use logica.jpeg>
+Package pdftex.def Info: logica.jpeg  used on input line 416.
+(pdftex.def)             Requested size: 374.86775pt x 751.6344pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[10 <./entidad-relacion.jpeg>]
+Overfull \vbox (72.45131pt too high) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[11 <./logica.jpeg>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[12]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[13]
+<componentes.jpeg, id=210, 1606.0pt x 629.35126pt>
+File: componentes.jpeg Graphic file (type jpg)
+<use componentes.jpeg>
+Package pdftex.def Info: componentes.jpeg  used on input line 444.
+(pdftex.def)             Requested size: 374.86775pt x 146.89883pt.
+<fisica-logica.jpeg, id=211, 720.6925pt x 1606.0pt>
+File: fisica-logica.jpeg Graphic file (type jpg)
+<use fisica-logica.jpeg>
+Package pdftex.def Info: fisica-logica.jpeg  used on input line 453.
+(pdftex.def)             Requested size: 374.86775pt x 835.34538pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[14 <./componentes.jpeg>]
+Overfull \vbox (194.1623pt too high) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[15 <./fisica-logica.jpeg>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[16] (main.aux
 LaTeX Info: Redefining \. on input line 7.
 LaTeX Info: Redefining \% on input line 7.
 )
@@ -940,69 +1044,35 @@ L3 programming layer <2025-12-24>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.12pt have occurred.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 2C543FB3A06F7036F2FE057C382CF213;5542
-(rerunfilecheck)             After:  483202E2F30C62C6024A71FFFD7DBF19;4229.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: DEF3C5B7E518E6500D74A80E54C9EB38;4506.
  ) 
 Here is how much of TeX's memory you used:
- 24855 strings out of 467871
- 466706 string characters out of 5428430
- 902872 words of memory out of 5000000
- 53299 multiletter control sequences out of 15000+600000
+ 24992 strings out of 467871
+ 469278 string characters out of 5428430
+ 900393 words of memory out of 5000000
+ 53420 multiletter control sequences out of 15000+600000
  640671 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,12n,94p,1195b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.2.9.2} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.9.1} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.8.2} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.8.1} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.6.3} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.6.2} has been referenced but does not 
-exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsection.2.6.1} has been referenced but does not 
-exist, replaced by a fixed one
-
- <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
-bx1095.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\tcrm1200.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/j
-knappen/ec/dpi600\ecrm1200.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/p
-k/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\ASUS FLOW\AppData\
-Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\ASUS FLO
-W\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\User
-s\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.pk
-> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
-cbx1440.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/e
-c/dpi600\tcrm1440.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/
-jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/
-pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\ASUS FLOW\AppData\Local\MiK
-TeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
-Output written on main.pdf (9 pages, 221761 bytes).
+ 84i,12n,94p,1195b,619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+ecbx1095.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/
+ec/dpi600\tcrm1200.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts
+/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ASUS FLOW\AppData\Local\Mi
+KTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\ASUS FLOW\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1095.pk> <C:\Users\ASUS F
+LOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Us
+ers\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1440.
+pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600
+\ecbx1440.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen
+/ec/dpi600\tcrm1440.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\ASUS FLOW\AppData\Local\MiKTeX\font
+s/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\ASUS FLOW\AppData\Local\M
+iKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
+Output written on main.pdf (17 pages, 603149 bytes).
 PDF statistics:
- 615 PDF objects out of 1000 (max. 8388607)
- 48 named destinations out of 1000 (max. 500000)
- 250 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 641 PDF objects out of 1000 (max. 8388607)
+ 56 named destinations out of 1000 (max. 500000)
+ 222 words of extra memory for PDF output out of 10000 (max. 10000000)
 

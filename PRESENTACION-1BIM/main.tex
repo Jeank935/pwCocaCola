@@ -1,25 +1,25 @@
-﻿% ============================================================
+% ============================================================
 %  Análisis de Reto – Plataforma B2B Coca-Cola Ecuador
 %  Plataformas Web – Sexto Ciclo – Abril-Agosto 2026
 %  Emilio Peña / Jean Cuenca  |  Ing. René Elizalde
 % ============================================================
 \documentclass[12pt, a4paper]{report}
 
-% ── Codificación y lenguaje ──────────────────────────────────
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish, es-noshorthands]{babel}
 
-% ── Tipografía ───────────────────────────────────────────────
 
-% ── Geometría de página ──────────────────────────────────────
+
+
 \usepackage[
   a4paper,
   top=2.5cm, bottom=2.5cm,
   left=3cm,  right=2.5cm
 ]{geometry}
 
-% ── Color ────────────────────────────────────────────────────
+
 \usepackage[table,xcdraw]{xcolor}
 \definecolor{utplblue}{HTML}{004B87} % Azul UTPL
 \definecolor{utplyellow}{HTML}{F39200} % Amarillo UTPL
@@ -28,12 +28,12 @@
 \definecolor{midgray}{HTML}{CCCCCC}
 \definecolor{redlight}{HTML}{FDECEA}
 
-% ── Gráficos ─────────────────────────────────────────────────
+
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
 
-% ── Tablas ───────────────────────────────────────────────────
+
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{longtable}
@@ -41,24 +41,27 @@
 \usepackage{array}
 \usepackage{colortbl}
 
-% ── Listas ───────────────────────────────────────────────────
+
 \usepackage{enumitem}
+\usepackage{float}
+\usepackage{setspace}
+\onehalfspacing
 \setlist[itemize,1]{label=\textcolor{utplblue}{\textbullet}, leftmargin=1.5em}
 \setlist[itemize,2]{label=\textcolor{darkgray}{--}, leftmargin=2.5em}
 
-% ── Encabezados y pies ───────────────────────────────────────
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[L]{\small\textcolor{midgray}{Plataforma B2B Coca-Cola Ecuador \; | \; Análisis de Reto}}
 \fancyhead[R]{\small\textcolor{midgray}{\thepage}}
-\fancyfoot[C]{\textcolor{utplblue}{\rule{\textwidth}{0.4pt}}}
+\fancyfoot[C]{}
 
-% ── Hipervínculos ────────────────────────────────────────────
+
 \usepackage[hidelinks, colorlinks=false]{hyperref}
 
-% ── Secciones personalizadas ─────────────────────────────────
+
 \usepackage{titlesec}
 \titleformat{\chapter}[block]
   {\color{utplblue}\bfseries\Large}
@@ -77,28 +80,28 @@
 \titlespacing*{\section}{0pt}{14pt}{6pt}
 \titlespacing*{\subsection}{0pt}{10pt}{4pt}
 
-% ── Portada sin encabezado ───────────────────────────────────
+
 \fancypagestyle{plain}{%
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
-  \fancyfoot[C]{\textcolor{utplblue}{\rule{\textwidth}{0.4pt}}}
 }
 
-% ── Utilidades ───────────────────────────────────────────────
+
 \usepackage{parskip}
 \setlength{\parskip}{6pt}
 \usepackage{caption}
 \captionsetup{font=small, labelfont=bf}
 
-% ── Comando de fila de tabla coloreada ───────────────────────
+
 \newcommand{\hdrrow}[1]{\rowcolor{utplblue}\textcolor{white}{\textbf{#1}}}
 \newcommand{\oddrow}{\rowcolor{lightgray}}
 \newcommand{\evenrow}{\rowcolor{white}}
 
 % ============================================================
 \begin{document}
+\setstretch{1.5}
 
-% ── PORTADA ─────────────────────────────────────────────────
+
 \begin{titlepage}
   \thispagestyle{empty}
 
@@ -137,7 +140,7 @@
   \vspace{1cm}
 \end{titlepage}
 
-% ── ÍNDICE ──────────────────────────────────────────────────
+
 \tableofcontents
 \thispagestyle{plain}
 \newpage
@@ -224,7 +227,7 @@ Programa de transición gradual: vendedores reconvertidos a roles de soporte y a
 \caption{Análisis de viabilidad y riesgos}
 \end{table}
 
-% ── 2.2 Requisitos Funcionales ────────────────────────────────
+
 \section{Requisitos Funcionales}
 
 Los siguientes requisitos definen las funciones que el sistema debe ejecutar, organizados por módulo operativo.
@@ -268,7 +271,7 @@ RF-10 & Logística & El sistema debe registrar la confirmación de entrega con f
 \caption{Catálogo de Requisitos Funcionales}
 \end{longtable}
 
-% ── 2.3 Requisitos No Funcionales ─────────────────────────────
+
 \section{Requisitos No Funcionales}
 
 Restricciones de calidad que el sistema debe cumplir con independencia de la funcionalidad específica.
@@ -308,7 +311,7 @@ RNF-08 & Disponibilidad & El sistema debe garantizar disponibilidad mínima del 
 \caption{Catálogo de Requisitos No Funcionales}
 \end{longtable}
 
-% ── 2.4 Historias de Usuario / Casos de Uso ───────────────────
+
 \section{Historias de Usuario / Casos de Uso}
 
 \subsection{M1 — Registro y Acceso}
@@ -365,7 +368,7 @@ Una vez confirmado un pedido, el sistema asigna automáticamente la ruta evaluan
 
 El administrador accede al panel con autenticación MFA. Desde el panel puede visualizar datos en tiempo real, configurar reglas de incentivos sin asistencia técnica y generar reportes exportables en CSV o PDF filtrados por período, comercio o zona geográfica.
 
-% ── 2.5 Sprint ────────────────────────────────────────────────
+
 \section{Sprint}
 
 El proyecto se organiza en 6 sprints de dos semanas, uno por módulo:
@@ -397,37 +400,61 @@ Sprint 6 & M6 — Administración & Panel con reportes, filtros y exportación C
 \caption{Planificación de Sprints}
 \end{table}
 
-% ── 2.6 Diagramas ─────────────────────────────────────────────
+
 \section{Diagramas: Clases y BD (Diseño Lógico)}
 
-% Descomenta la siguiente línea y pon el nombre de tu imagen
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
-% \includegraphics[width=0.8\textwidth]{imagen_clases.png}
-\caption{Diagrama de Clases y Base de Datos}
+\includegraphics[width=0.85\textwidth]{entidad-relacion.jpeg}
+\caption{Diagrama de Clases}
 \end{figure}
 
-% ── 2.7 Diagrama de Componentes ───────────────────────────────
+\vspace{1.5cm}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{logica.jpeg}
+\caption{Diseño Lógico}
+\end{figure}
+
+\subsection{Preguntas y Respuestas sobre el Diagrama}
+
+\begin{enumerate}
+    \item \textbf{¿Qué pasa desde que un comercio hace un pedido hasta que se le asigna una ruta de entrega?} \\
+    Cuando un comercio presiona "Confirmar pedido", el sistema primero accede a la tabla COMERCIO para verificar que el comercio existe, está activo y obtener su dirección de entrega. Luego crea un nuevo registro en PEDIDO vinculado al comercio\_id y al usuario\_id del usuario que está logueado en ese momento. Inmediatamente después, por cada producto seleccionado se crean registros en DETALLE\_PEDIDO, cada uno con su pedido\_id, producto\_id, cantidad y precio unitario tomado en ese instante de PRODUCTO. Con todos los detalles registrados, el motor de incentivos consulta INCENTIVO filtrando por comercio\_id y el monto total del pedido para aplicar el descuento correspondiente, que se escribe de vuelta en el campo descuento de PEDIDO. Finalmente el servicio de logística busca en RUTA la zona que coincide con la dirección del comercio y tiene capacidad disponible, y crea un nuevo registro en ENTREGA enlazando el pedido\_id con el ruta\_id encontrado. En total interactúan 6 tablas: COMERCIO, USUARIO, PEDIDO, DETALLE\_PEDIDO, PRODUCTO, INCENTIVO, RUTA y ENTREGA.
+
+    \item \textbf{¿Cómo sabe el sistema qué descuento aplicarle a un comercio específico en tiempo real antes de confirmar el pedido?} \\
+    Cuando el comercio está armando su carrito, el sistema toma el comercio\_id de la sesión activa en USUARIO y con él va a COMERCIO para leer el campo categoria y volumen\_90d. Con esa categoría va a INCENTIVO y filtra todos los registros donde comercio\_id coincide y el monto actual del carrito cae entre umbral\_min y umbral\_max, además de verificar que activo sea verdadero. De los registros que devuelve busca el de mayor descuento\_pct aplicable. Paralelamente recorre cada ítem del carrito consultando PRODUCTO para obtener el precio vigente de cada uno, multiplica por la cantidad y suma el subtotal. Sobre ese monto aplica el porcentaje encontrado en INCENTIVO y muestra el resultado en pantalla antes de que el comercio confirme. Si el comercio cambia una cantidad, el ciclo se repite completo. Interactúan 4 tablas: USUARIO, COMERCIO, INCENTIVO y PRODUCTO.
+
+    \item \textbf{¿Cómo se construye el historial completo de un comercio mostrando cada pedido con sus productos, estado de entrega y notificaciones recibidas?} \\
+    El sistema toma el comercio\_id del comercio autenticado y va a PEDIDO para traer todos los registros donde ese comercio\_id coincide, ordenados por fecha descendente. Por cada pedido encontrado hace dos cosas en paralelo. Primero va a DETALLE\_PEDIDO filtrando por pedido\_id para obtener todas las líneas de productos, y por cada línea consulta PRODUCTO usando el producto\_id para obtener el nombre e imagen actual. Segundo, busca en ENTREGA el registro con ese pedido\_id para leer fecha\_estimada, fecha\_real y tipo\_confirmacion, y desde ahí va a RUTA con el ruta\_id para mostrar la zona y el vehículo asignado. Adicionalmente consulta NOTIFICACION filtrando por pedido\_id para listar todos los mensajes que se enviaron en ese ciclo, con su canal y fecha. Todo se agrupa por pedido y se presenta en una sola vista. Interactúan 7 tablas: COMERCIO, PEDIDO, DETALLE\_PEDIDO, PRODUCTO, ENTREGA, RUTA y NOTIFICACION.
+
+    \item \textbf{¿Cómo actualiza el sistema automáticamente la categoría comercial de un comercio al cierre del ciclo de 90 días?} \\
+    Al dispararse el cierre de ciclo, el sistema recorre todos los registros de COMERCIO que tienen estado activo. Por cada uno toma su id y va a PEDIDO filtrando por comercio\_id y por fecha dentro de los últimos 90 días, sumando todos los monto\_total de pedidos con estado "entregado". Ese valor acumulado lo compara contra los umbrales definidos en INCENTIVO filtrando los registros de tipo "categoria" y activo verdadero para determinar si el comercio sube, mantiene o baja de categoría entre Estándar, Preferente y Estratégico. Con la categoría nueva calculada vuelve a COMERCIO y actualiza los campos categoria y volumen\_90d con el valor sumado. Si la categoría cambió, el servicio de notificaciones crea un nuevo registro en NOTIFICACION con comercio\_id, un mensaje informando el nuevo nivel y el canal correspondiente. Interactúan 3 tablas: COMERCIO, PEDIDO e INCENTIVO, con escritura de vuelta en COMERCIO y creación en NOTIFICACION.
+
+    \item \textbf{¿Cómo genera el panel administrativo un reporte de pedidos filtrado por zona geográfica, período y estado de entrega, con los datos completos de cada comercio involucrado?} \\
+    El administrador selecciona una zona, un rango de fechas y un estado de entrega en el panel. El sistema primero va a RUTA y obtiene todos los id de rutas cuya zona coincide con el filtro seleccionado. Con esos ruta\_id va a ENTREGA y filtra todos los registros que los contengan y cuya fecha\_estimada esté dentro del rango de fechas ingresado. De cada entrega toma el pedido\_id y va a PEDIDO para verificar que el estado coincida con el filtro y para obtener monto\_total, descuento y fecha. Desde cada pedido sube a COMERCIO usando comercio\_id para obtener nombre comercial, RUC, dirección y categoría actual. Luego baja a DETALLE\_PEDIDO filtrando por pedido\_id para contar cuántos productos distintos tuvo ese pedido, y consulta PRODUCTO por cada producto\_id para mostrar los nombres. Finalmente consulta NOTIFICACION por pedido\_id para incluir en el reporte el log de comunicaciones del ciclo. Todo se agrupa, se suma por comercio y por zona, y se exporta. Interactúan 7 tablas: RUTA, ENTREGA, PEDIDO, COMERCIO, DETALLE\_PEDIDO, PRODUCTO y NOTIFICACION.
+\end{enumerate}
+
+
 \section{Diagrama de Componentes}
 
-% Descomenta la siguiente línea y pon el nombre de tu imagen
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
-% \includegraphics[width=0.8\textwidth]{imagen_componentes.png}
+\includegraphics[width=0.85\textwidth]{componentes.jpeg}
 \caption{Diagrama de Componentes del sistema}
 \end{figure}
 
-% ── 2.8 Arquitectura ──────────────────────────────────────────
+
 \section{Arquitectura Lógica y Física (Propuesta)}
 
-% Descomenta la siguiente línea y pon el nombre de tu imagen
-\begin{figure}[ht]
+\begin{figure}[H]
 \centering
-% \includegraphics[width=0.8\textwidth]{imagen_arquitectura.png}
+\includegraphics[width=0.85\textwidth]{fisica-logica.jpeg}
 \caption{Arquitectura Lógica y Física}
 \end{figure}
 
-% ── 2.9 Prototipo ─────────────────────────────────────────────
+
 \section{Prototipo de Pantallas No Funcional}
 
 % Descomenta la siguiente línea y pon el nombre de tu imagen
@@ -437,5 +464,5 @@ Sprint 6 & M6 — Administración & Panel con reportes, filtros y exportación C
 \caption{Prototipos de Pantallas}
 \end{figure}
 
-% ── FIN ───────────────────────────────────────────────────────
+
 \end{document}
