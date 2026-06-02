@@ -1,0 +1,441 @@
+﻿% ============================================================
+%  Análisis de Reto – Plataforma B2B Coca-Cola Ecuador
+%  Plataformas Web – Sexto Ciclo – Abril-Agosto 2026
+%  Emilio Peña / Jean Cuenca  |  Ing. René Elizalde
+% ============================================================
+\documentclass[12pt, a4paper]{report}
+
+% ── Codificación y lenguaje ──────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ── Tipografía ───────────────────────────────────────────────
+
+% ── Geometría de página ──────────────────────────────────────
+\usepackage[
+  a4paper,
+  top=2.5cm, bottom=2.5cm,
+  left=3cm,  right=2.5cm
+]{geometry}
+
+% ── Color ────────────────────────────────────────────────────
+\usepackage[table,xcdraw]{xcolor}
+\definecolor{utplblue}{HTML}{004B87} % Azul UTPL
+\definecolor{utplyellow}{HTML}{F39200} % Amarillo UTPL
+\definecolor{darkgray}{HTML}{2D2D2D}
+\definecolor{lightgray}{HTML}{F5F5F5}
+\definecolor{midgray}{HTML}{CCCCCC}
+\definecolor{redlight}{HTML}{FDECEA}
+
+% ── Gráficos ─────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+
+% ── Tablas ───────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{colortbl}
+
+% ── Listas ───────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize,1]{label=\textcolor{utplblue}{\textbullet}, leftmargin=1.5em}
+\setlist[itemize,2]{label=\textcolor{darkgray}{--}, leftmargin=2.5em}
+
+% ── Encabezados y pies ───────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\small\textcolor{midgray}{Plataforma B2B Coca-Cola Ecuador \; | \; Análisis de Reto}}
+\fancyhead[R]{\small\textcolor{midgray}{\thepage}}
+\fancyfoot[C]{\textcolor{utplblue}{\rule{\textwidth}{0.4pt}}}
+
+% ── Hipervínculos ────────────────────────────────────────────
+\usepackage[hidelinks, colorlinks=false]{hyperref}
+
+% ── Secciones personalizadas ─────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\chapter}[block]
+  {\color{utplblue}\bfseries\Large}
+  {\thechapter.}{0.5em}{}
+  [\vspace{-0.3em}\textcolor{utplblue}{\rule{\textwidth}{1.2pt}}]
+
+\titleformat{\section}[block]
+  {\color{darkgray}\bfseries\large}
+  {\thesection}{0.5em}{}
+
+\titleformat{\subsection}[block]
+  {\color{darkgray}\bfseries\normalsize}
+  {\thesubsection}{0.5em}{}
+
+\titlespacing*{\chapter}{0pt}{20pt}{15pt}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+
+% ── Portada sin encabezado ───────────────────────────────────
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[C]{\textcolor{utplblue}{\rule{\textwidth}{0.4pt}}}
+}
+
+% ── Utilidades ───────────────────────────────────────────────
+\usepackage{parskip}
+\setlength{\parskip}{6pt}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf}
+
+% ── Comando de fila de tabla coloreada ───────────────────────
+\newcommand{\hdrrow}[1]{\rowcolor{utplblue}\textcolor{white}{\textbf{#1}}}
+\newcommand{\oddrow}{\rowcolor{lightgray}}
+\newcommand{\evenrow}{\rowcolor{white}}
+
+% ============================================================
+\begin{document}
+
+% ── PORTADA ─────────────────────────────────────────────────
+\begin{titlepage}
+  \thispagestyle{empty}
+
+  % Logo en la parte superior izquierda
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, xshift=1.5cm, yshift=-1.5cm] at (current page.north west) {
+      \includegraphics[height=3.5cm]{logo.png}
+    };
+  \end{tikzpicture}
+
+  \vspace*{4cm}
+  \begin{center}
+    {\color{utplblue}\fontsize{26}{32}\selectfont\bfseries ANÁLISIS DE RETO}\\[0.5em]
+    {\color{darkgray}\fontsize{15}{20}\selectfont Plataforma B2B de Autogestión}
+  \end{center}
+
+  \vspace{2.5cm}
+  \begin{center}
+    {\color{utplblue}\fontsize{20}{26}\selectfont\bfseries Coca-Cola Ecuador}\\[0.8em]
+    \textcolor{midgray}{\rule{0.5\textwidth}{0.6pt}}\\[0.8em]
+    {\large\color{darkgray} Plataformas Web \;·\; Sexto Ciclo \;·\; Abril – Agosto 2026}
+  \end{center}
+
+  \vspace{2.5cm}
+  \begin{center}
+    {\large\color{darkgray}\bfseries Integrantes:}\\[0.4em]
+    {\large\color{darkgray} Emilio Peña \;–\; Jean Cuenca}\\[1em]
+    {\large\color{darkgray}\bfseries Docente:}\\[0.4em]
+    {\large\color{darkgray}\itshape Ing. René Elizalde}
+  \end{center}
+
+  \vfill
+  \begin{center}
+    {\small\color{darkgray} Universidad Técnica Particular de Loja \;·\; 2026}
+  \end{center}
+  \vspace{1cm}
+\end{titlepage}
+
+% ── ÍNDICE ──────────────────────────────────────────────────
+\tableofcontents
+\thispagestyle{plain}
+\newpage
+
+% ============================================================
+%  CAPÍTULO 1
+% ============================================================
+\chapter{Introducción y Contexto}
+
+\section{Introducción}
+
+La presente documentación describe el análisis del reto planteado para el desarrollo de una plataforma web de autogestión B2B para Coca-Cola Ecuador. Esta solución busca digitalizar el proceso de pedidos entre la embotelladora y sus comercios aliados, eliminando intermediarios y optimizando la operación comercial mediante tecnología.
+
+La plataforma permite a los comercios realizar pedidos de forma directa, acceder a incentivos automatizados y dar seguimiento a sus entregas en tiempo real, mientras que la embotelladora obtiene trazabilidad completa y herramientas de análisis para la toma de decisiones estratégicas.
+
+\section{Problemática}
+
+El modelo de pedidos actual de Coca-Cola Ecuador presenta las siguientes limitaciones:
+
+\begin{itemize}
+  \item Dependencia de vendedores de campo para la captura manual de pedidos, generando demoras y errores.
+  \item Costos operativos elevados asociados a comisiones de agentes externos por cada transacción.
+  \item Falta de visibilidad en tiempo real del ciclo de pedido, desde la captura hasta la entrega.
+  \item Ausencia de un sistema de incentivos estandarizado y automatizado para comercios.
+  \item Limitada trazabilidad de datos para la toma de decisiones estratégicas de la embotelladora.
+\end{itemize}
+
+\section{Metodología o Estrategia de Desarrollo}
+
+El proyecto adopta una metodología ágil basada en \textbf{Scrum}, con sprints de dos semanas, revisiones continuas y entregas incrementales. La estrategia contempla:
+
+\begin{itemize}
+  \item \textbf{Arquitectura mobile-first con soporte offline} mediante sincronización diferida (SQLite local).
+  \item \textbf{Integración con ERP/WMS existente} a través de una API REST, evitando duplicación de infraestructura.
+  \item \textbf{Desarrollo iterativo} organizado en 6 módulos funcionales independientes pero interconectados.
+  \item \textbf{Validación continua} con stakeholders de Coca-Cola Ecuador en cada ciclo de revisión.
+\end{itemize}
+
+% ============================================================
+%  CAPÍTULO 2
+% ============================================================
+\chapter{Planificación y Análisis}
+
+\section{Análisis de la Solución}
+
+\subsection{Propuesta de Valor Técnica}
+
+La solución propuesta es una plataforma web B2B que centraliza la operación de pedidos. Los pilares técnicos son:
+
+\begin{itemize}
+  \item \textbf{Eliminación de la comisión de agentes:} al digitalizar los pedidos se elimina el costo variable por transacción del agente externo, convirtiéndolo en descuentos directos al comercio.
+  \item \textbf{Arquitectura mobile-first con soporte offline:} la app opera con sincronización diferida; el comerciante registra pedidos sin conexión y la plataforma los procesa al recuperar la señal.
+  \item \textbf{Motor de incentivos automatizado:} calcula descuentos y bonificaciones en tiempo real sin intervención manual.
+  \item \textbf{Integración con ERP/WMS existente:} mediante API REST con los sistemas logísticos actuales, sin duplicación de infraestructura.
+  \item \textbf{Panel administrativo:} trazabilidad completa del ciclo de pedido con analítica en tiempo real.
+\end{itemize}
+
+\subsection{Viabilidad y Riesgos}
+
+\begin{table}[ht]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3cm} X X}
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{Barrera}} &
+\textcolor{white}{\textbf{Descripción del riesgo}} &
+\textcolor{white}{\textbf{Mitigación tecnológica}} \\
+\midrule
+\rowcolor{lightgray}
+Conectividad limitada &
+Zonas rurales o semiurbanas con cobertura de datos inestable que impide pedidos en tiempo real. &
+Modo offline-first con sincronización automática al recuperar señal. Pedidos almacenados en SQLite local hasta su envío. \\
+\rowcolor{white}
+Baja adopción digital &
+Tiendas de barrio con poca experiencia en aplicaciones móviles. &
+UX simplificada con flujo de pedido en 3 pasos y onboarding guiado en la primera sesión. \\
+\rowcolor{lightgray}
+Resistencia de vendedores de campo &
+Vendedores actuales pueden generar fricción en la transición al modelo directo. &
+Programa de transición gradual: vendedores reconvertidos a roles de soporte y activación digital con indicadores propios en la plataforma. \\
+\bottomrule
+\end{tabularx}
+\caption{Análisis de viabilidad y riesgos}
+\end{table}
+
+% ── 2.2 Requisitos Funcionales ────────────────────────────────
+\section{Requisitos Funcionales}
+
+Los siguientes requisitos definen las funciones que el sistema debe ejecutar, organizados por módulo operativo.
+
+\begin{longtable}{>{\bfseries\color{utplblue}}p{1.5cm} p{2.5cm} p{9.5cm}}
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{ID}} &
+\textcolor{white}{\textbf{Módulo}} &
+\textcolor{white}{\textbf{Requisito Funcional}} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{ID}} &
+\textcolor{white}{\textbf{Módulo}} &
+\textcolor{white}{\textbf{Requisito Funcional}} \\
+\midrule
+\endhead
+\rowcolor{lightgray}
+RF-01 & Comercio & El sistema debe permitir al comercio registrar un pedido seleccionando productos del catálogo activo, especificando cantidades y confirmando la orden en un máximo de 3 pasos. \\
+\rowcolor{white}
+RF-02 & Comercio & El sistema debe calcular y mostrar en tiempo real el descuento aplicable según el monto del pedido, antes de que el comercio confirme la transacción. \\
+\rowcolor{lightgray}
+RF-03 & Comercio & El sistema debe permitir al comercio consultar el historial completo de sus pedidos con estado actualizado (en proceso, despachado, entregado) y opción de reorden directa. \\
+\rowcolor{white}
+RF-04 & Comercio & El sistema debe permitir al comercio registrar y actualizar su información de punto de venta, incluyendo dirección de entrega, datos de contacto y preferencia de horario. \\
+\rowcolor{lightgray}
+RF-05 & Administración & El sistema debe permitir al administrador configurar umbrales de descuento por volumen, reglas de bonificación por frecuencia y criterios de categoría comercial sin intervención técnica. \\
+\rowcolor{white}
+RF-06 & Administración & El sistema debe generar reportes exportables en CSV y PDF de pedidos por período, comercio y zona geográfica, con filtros aplicables desde el panel. \\
+\rowcolor{lightgray}
+RF-07 & Administración & El sistema debe gestionar el catálogo de productos activos permitiendo activar, desactivar o modificar precios y disponibilidad en tiempo real con reflejo inmediato en la app. \\
+\rowcolor{white}
+RF-08 & Logística & El sistema debe asignar automáticamente cada pedido confirmado a la ruta de despacho correspondiente según la ubicación del comercio y la capacidad de carga disponible. \\
+\rowcolor{lightgray}
+RF-09 & Logística & El sistema debe notificar al comercio vía app y SMS los cambios de estado del pedido: confirmación, despacho y entrega estimada. \\
+\rowcolor{white}
+RF-10 & Logística & El sistema debe registrar la confirmación de entrega con firma digital o código de verificación del comercio, vinculado al pedido como evidencia del ciclo completo. \\
+\bottomrule
+\caption{Catálogo de Requisitos Funcionales}
+\end{longtable}
+
+% ── 2.3 Requisitos No Funcionales ─────────────────────────────
+\section{Requisitos No Funcionales}
+
+Restricciones de calidad que el sistema debe cumplir con independencia de la funcionalidad específica.
+
+\begin{longtable}{>{\bfseries\color{utplblue}}p{1.8cm} p{2.8cm} p{9cm}}
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{ID}} &
+\textcolor{white}{\textbf{Categoría}} &
+\textcolor{white}{\textbf{Requisito No Funcional}} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{ID}} &
+\textcolor{white}{\textbf{Categoría}} &
+\textcolor{white}{\textbf{Requisito No Funcional}} \\
+\midrule
+\endhead
+\rowcolor{lightgray}
+RNF-01 & Usabilidad & El flujo de registro de pedido debe completarse en un máximo de 3 pasos desde la pantalla principal, sin requerir capacitación previa del usuario. \\
+\rowcolor{white}
+RNF-02 & Usabilidad & La interfaz debe soportar operación offline completa para registro y consulta de pedidos, sincronizando automáticamente al recuperar la conexión. \\
+\rowcolor{lightgray}
+RNF-03 & Rendimiento & El sistema debe responder a cualquier acción del usuario en menos de 2 segundos bajo condiciones normales de red. \\
+\rowcolor{white}
+RNF-04 & Rendimiento & La plataforma debe soportar al menos 5\,000 sesiones concurrentes sin degradación perceptible del tiempo de respuesta. \\
+\rowcolor{lightgray}
+RNF-05 & Seguridad & Toda comunicación entre cliente y servidor debe estar cifrada mediante TLS 1.2 o superior. Los datos sensibles deben almacenarse cifrados en reposo (AES-256). \\
+\rowcolor{white}
+RNF-06 & Seguridad & El sistema debe implementar autenticación multifactor (MFA) para el panel administrativo y expiración de sesión tras 15 minutos de inactividad. \\
+\rowcolor{lightgray}
+RNF-07 & Escalabilidad & La arquitectura debe permitir escalar horizontalmente los servicios de backend sin tiempo de inactividad, soportando un crecimiento del 300\% en volumen de pedidos sin rediseño. \\
+\rowcolor{white}
+RNF-08 & Disponibilidad & El sistema debe garantizar disponibilidad mínima del 99,5\% mensual, con recuperación ante fallos en menos de 30 minutos. \\
+\bottomrule
+\caption{Catálogo de Requisitos No Funcionales}
+\end{longtable}
+
+% ── 2.4 Historias de Usuario / Casos de Uso ───────────────────
+\section{Historias de Usuario / Casos de Uso}
+
+\subsection{M1 — Registro y Acceso}
+
+El comercio inicia el proceso registrando su cuenta con datos básicos: RUC, nombre comercial, dirección y contacto. El sistema envía obligatoriamente un código OTP por SMS para verificar la identidad antes del primer acceso. Para accesos posteriores el sistema incluye autenticación de credenciales. En caso de olvido de contraseña, el flujo de recuperación incluye verificación OTP como paso obligatorio.
+
+\subsection{M2 — Catálogo de Productos}
+
+El comercio accede al catálogo y el sistema carga productos desde el backend mostrando imagen, precio vigente y disponibilidad. Sin conexión a internet, el catálogo se carga desde caché local en modo offline. El administrador puede modificar precio y disponibilidad, lo que dispara sincronización inmediata en la app del comercio.
+
+\subsection{M3 — Pedidos}
+
+El comercio registra un pedido en tres pasos secuenciales obligatorios: (1) seleccionar productos y cantidades, (2) calcular el descuento en tiempo real, (3) confirmar la orden. Sin conexión, el pedido se guarda en SQLite local y se sincroniza automáticamente al recuperar la señal. El comercio puede consultar el historial y realizar reórdenes directas.
+
+\subsection{M4 — Incentivos y Recompensas}
+
+El sistema aplica dos mecanismos de incentivo:
+
+\begin{itemize}
+  \item \textbf{Descuentos por volumen:} umbrales configurables desde el panel (ej.\ 5\% desde \$200, 10\% desde \$500). El descuento se refleja en tiempo real antes de confirmar.
+  \item \textbf{Bonificación por frecuencia:} los comercios que realizan pedidos dentro de una ventana de tiempo predefinida acumulan puntos canjeables, evaluados automáticamente por el sistema.
+\end{itemize}
+
+Adicionalmente el sistema implementa un \textbf{esquema de Categoría Comercial}, basado en el volumen acumulado de los últimos 90 días:
+
+\begin{table}[ht]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.8cm} X X}
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{Categoría}} &
+\textcolor{white}{\textbf{Criterio de acceso}} &
+\textcolor{white}{\textbf{Beneficios}} \\
+\midrule
+\rowcolor{lightgray}
+Comercio Estándar & Volumen base (acceso inicial) & Acceso completo al catálogo y descuentos estándar por volumen. \\
+\rowcolor{white}
+Comercio Preferente & Volumen medio en los últimos 90 días & Descuentos adicionales, condiciones de pago extendidas y atención prioritaria. \\
+\rowcolor{lightgray}
+Comercio Estratégico & Volumen alto en los últimos 90 días & Prioridad de entrega, descuentos diferenciados y gestor de cuenta asignado. \\
+\bottomrule
+\end{tabularx}
+\caption{Esquema de Categoría Comercial}
+\end{table}
+
+La categoría se actualiza automáticamente al cierre de cada ciclo de evaluación sin intervención manual.
+
+\subsection{M5 — Logística y Despacho}
+
+Una vez confirmado un pedido, el sistema asigna automáticamente la ruta evaluando la ubicación geográfica del comercio y la capacidad del vehículo. El comercio recibe notificaciones por app y SMS en cada cambio de estado. La entrega se registra mediante firma digital o código de verificación.
+
+\subsection{M6 — Administración y Reportes}
+
+El administrador accede al panel con autenticación MFA. Desde el panel puede visualizar datos en tiempo real, configurar reglas de incentivos sin asistencia técnica y generar reportes exportables en CSV o PDF filtrados por período, comercio o zona geográfica.
+
+% ── 2.5 Sprint ────────────────────────────────────────────────
+\section{Sprint}
+
+El proyecto se organiza en 6 sprints de dos semanas, uno por módulo:
+
+\begin{table}[ht]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{>{\bfseries\color{utplblue}}p{1.8cm} p{4cm} X}
+\toprule
+\rowcolor{utplblue}
+\textcolor{white}{\textbf{Sprint}} &
+\textcolor{white}{\textbf{Módulo}} &
+\textcolor{white}{\textbf{Entregable principal}} \\
+\midrule
+\rowcolor{lightgray}
+Sprint 1 & M1 — Registro y Acceso & Flujo de registro con OTP, inicio de sesión y recuperación de contraseña. \\
+\rowcolor{white}
+Sprint 2 & M2 — Catálogo & Catálogo con soporte offline, búsqueda y gestión por administrador. \\
+\rowcolor{lightgray}
+Sprint 3 & M3 — Pedidos & Registro de pedido en 3 pasos, modo offline con SQLite e historial de pedidos. \\
+\rowcolor{white}
+Sprint 4 & M4 — Incentivos & Motor de descuentos por volumen, bonificación por frecuencia y categorías comerciales. \\
+\rowcolor{lightgray}
+Sprint 5 & M5 — Logística & Asignación automática de rutas, notificaciones y confirmación de entrega. \\
+\rowcolor{white}
+Sprint 6 & M6 — Administración & Panel con reportes, filtros y exportación CSV/PDF. \\
+\bottomrule
+\end{tabularx}
+\caption{Planificación de Sprints}
+\end{table}
+
+% ── 2.6 Diagramas ─────────────────────────────────────────────
+\section{Diagramas: Clases y BD (Diseño Lógico)}
+
+% Descomenta la siguiente línea y pon el nombre de tu imagen
+\begin{figure}[ht]
+\centering
+% \includegraphics[width=0.8\textwidth]{imagen_clases.png}
+\caption{Diagrama de Clases y Base de Datos}
+\end{figure}
+
+% ── 2.7 Diagrama de Componentes ───────────────────────────────
+\section{Diagrama de Componentes}
+
+% Descomenta la siguiente línea y pon el nombre de tu imagen
+\begin{figure}[ht]
+\centering
+% \includegraphics[width=0.8\textwidth]{imagen_componentes.png}
+\caption{Diagrama de Componentes del sistema}
+\end{figure}
+
+% ── 2.8 Arquitectura ──────────────────────────────────────────
+\section{Arquitectura Lógica y Física (Propuesta)}
+
+% Descomenta la siguiente línea y pon el nombre de tu imagen
+\begin{figure}[ht]
+\centering
+% \includegraphics[width=0.8\textwidth]{imagen_arquitectura.png}
+\caption{Arquitectura Lógica y Física}
+\end{figure}
+
+% ── 2.9 Prototipo ─────────────────────────────────────────────
+\section{Prototipo de Pantallas No Funcional}
+
+% Descomenta la siguiente línea y pon el nombre de tu imagen
+\begin{figure}[ht]
+\centering
+% \includegraphics[width=0.8\textwidth]{imagen_prototipo.png}
+\caption{Prototipos de Pantallas}
+\end{figure}
+
+% ── FIN ───────────────────────────────────────────────────────
+\end{document}
