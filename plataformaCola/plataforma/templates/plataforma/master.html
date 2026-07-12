@@ -24,7 +24,14 @@
                     <ul class="navbar-nav ms-auto gap-lg-1">
                         {% if request.session.usuario_id %}
                             <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'catalogo' %}">Catalogo</a></li>
-                            <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'historial' %}">Pedidos</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link brand-nav-link px-3 d-inline-flex align-items-center gap-2" href="{% if request.session.carrito_cantidad %}{% url 'pedido_paso2' %}{% else %}{% url 'historial' %}{% endif %}">
+                                    Pedidos
+                                    {% if request.session.carrito_cantidad %}
+                                        <span class="cart-badge">{{ request.session.carrito_cantidad }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
                             <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'entregas' %}">Entregas</a></li>
                             <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'notificaciones' %}">Avisos</a></li>
                             <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'reportes' %}">Reportes</a></li>

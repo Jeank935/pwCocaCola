@@ -16,6 +16,8 @@ urlpatterns = [
     path("pedido/paso-3/", views.pedido_paso3, name="pedido_paso3"),
 
     path("pedido/limpiar/", views.carrito_limpiar, name="carrito_limpiar"),
+    path("pedido/eliminar/<int:producto_id>/", views.eliminar_producto_carrito, name="eliminar_producto_carrito"),
+    path("pedido/actualizar/<int:producto_id>/", views.actualizar_cantidad_carrito, name="actualizar_cantidad_carrito"),
     path("pedidos/", views.historial_pedidos, name="historial"),
     path("pedidos/<int:pedido_id>/", views.pedido_detalle, name="pedido_detalle"),
     path("pedidos/<int:pedido_id>/reordenar/", views.reordenar_pedido, name="reordenar_pedido"),

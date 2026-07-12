@@ -1,15 +1,25 @@
 {% extends 'plataforma/master.html' %}
+{% load static %}
 
 {% block title %}Catalogo | ISBEN Solution{% endblock %}
 
 {% block content %}
 <section class="container-lg">
-    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
         <div>
-            <p class="brand-eyebrow">Paso 1</p>
+            <p class="brand-eyebrow">Elige productos</p>
             <h1 class="brand-title h2">Catalogo de productos</h1>
         </div>
-        <a class="btn btn-accent" href="{% url 'pedido_paso2' %}">Continuar pedido</a>
+        <a class="btn btn-accent d-inline-flex align-items-center gap-2" href="{% url 'pedido_paso2' %}">
+            Continuar pedido
+            {% if request.session.carrito_cantidad %}
+                <span class="cart-badge cart-badge-dark">{{ request.session.carrito_cantidad }}</span>
+            {% endif %}
+        </a>
+    </div>
+    <div class="order-progress mb-4" role="progressbar" aria-label="Progreso del pedido" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
+        <span class="order-progress-fill" style="--order-progress: 33.333%; --order-progress-start: 0;"></span>
+        <span class="visually-hidden">Paso 1 de 3</span>
     </div>
 
     <form class="brand-card p-3 mb-4" method="get">
@@ -26,7 +36,21 @@
     <div class="row g-3">
         {% for producto in productos %}
             <div class="col-md-6 col-xl-4">
-                <article class="brand-card p-3 h-100">
+                <article class="brand-card product-card p-3 h-100">
+                    <div class="product-media mb-3">
+                        {% if producto.imagen_url %}
+                            <img
+                                class="product-image"
+                                src="{% static producto.imagen_url %}"
+                                alt="{{ producto.nombre }}"
+                                style="max-width: 100%; max-height: 120px; width: auto; height: auto; object-fit: contain;"
+                            >
+                        {% else %}
+                            <div class="product-media-empty">
+                                <span>Sin imagen</span>
+                            </div>
+                        {% endif %}
+                    </div>
                     <div class="d-flex justify-content-between gap-3">
                         <div>
                             <h2 class="h5 mb-1">{{ producto.nombre }}</h2>

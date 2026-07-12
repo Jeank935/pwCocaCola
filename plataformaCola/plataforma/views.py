@@ -48,11 +48,27 @@ def comercio_requerido(view_func):
 
 
 def obtener_carrito(request):
-    return request.session.setdefault("carrito", {})
+    carrito = request.session.setdefault("carrito", {})
+    if "carrito_cantidad" not in request.session:
+        request.session["carrito_cantidad"] = contar_productos_carrito(carrito)
+        request.session.modified = True
+    return carrito
+
+
+def contar_productos_carrito(carrito):
+    total = 0
+    for cantidad in carrito.values():
+        try:
+            if int(cantidad) > 0:
+                total += 1
+        except (TypeError, ValueError):
+            continue
+    return total
 
 
 def guardar_carrito(request, carrito):
     request.session["carrito"] = carrito
+    request.session["carrito_cantidad"] = contar_productos_carrito(carrito)
     request.session.modified = True
 
 
@@ -177,6 +193,10 @@ def agregar_producto(request, producto_id):
 
     carrito = obtener_carrito(request)
     cantidad_actual = int(carrito.get(str(producto.id), 0))
+    if cantidad_actual + cantidad > producto.stock:
+        messages.warning(request, "La cantidad total supera el stock disponible.")
+        return redirect("catalogo")
+
     carrito[str(producto.id)] = cantidad_actual + cantidad
     guardar_carrito(request, carrito)
     messages.success(request, "Producto agregado al pedido.")
@@ -205,12 +225,19 @@ def pedido_paso2(request):
         {
             "items": items,
             "subtotal": subtotal,
+<<<<<<< HEAD
             "incentivo": calculo["incentivo"],
             "descuento": calculo["descuento"],
             "descuento_volumen_pct": calculo["descuento_volumen_pct"],
             "bono_categoria_pct": calculo["bono_categoria_pct"],
             "descuento_pct_total": calculo["descuento_pct_total"],
             "total": calculo["total"],
+=======
+            "incentivo": incentivo,
+            "descuento": descuento,
+            "total": total,
+            "cantidad_editable": True,
+>>>>>>> cd4ef834137816fa7cc26caffef6158c18679788
         },
     )
 
@@ -287,6 +314,68 @@ def carrito_limpiar(request):
     guardar_carrito(request, {})
     messages.success(request, "Pedido en curso limpiado.")
     return redirect("catalogo")
+
+
+@comercio_requerido
+def eliminar_producto_carrito(request, producto_id):
+    if request.method != "POST":
+        return redirect("pedido_paso2")
+
+    carrito = obtener_carrito(request)
+    producto_key = str(producto_id)
+    if producto_key in carrito:
+        del carrito[producto_key]
+        guardar_carrito(request, carrito)
+        messages.success(request, "Producto eliminado del pedido.")
+
+    if contar_productos_carrito(carrito) == 0:
+        return redirect("catalogo")
+
+    next_url = request.POST.get("next", "")
+    if next_url.startswith("/"):
+        return redirect(next_url)
+    return redirect("pedido_paso2")
+
+
+@comercio_requerido
+def actualizar_cantidad_carrito(request, producto_id):
+    if request.method != "POST":
+        return redirect("pedido_paso2")
+
+    producto = get_object_or_404(Producto, id=producto_id, activo=True)
+    carrito = obtener_carrito(request)
+    producto_key = str(producto.id)
+    cantidad_actual = int(carrito.get(producto_key, 0))
+    accion = request.POST.get("accion")
+
+    try:
+        cantidad_ingresada = int(request.POST.get("cantidad", cantidad_actual))
+        cantidad_original = int(request.POST.get("cantidad_original", cantidad_actual))
+    except (TypeError, ValueError):
+        cantidad_ingresada = 0
+        cantidad_original = cantidad_actual
+
+    if cantidad_ingresada != cantidad_original:
+        cantidad = cantidad_ingresada
+    elif accion == "incrementar":
+        cantidad = cantidad_actual + 1
+    elif accion == "decrementar":
+        cantidad = cantidad_actual - 1
+    else:
+        cantidad = cantidad_ingresada
+
+    if cantidad <= 0:
+        messages.warning(request, "Selecciona una cantidad valida.")
+    elif cantidad > producto.stock:
+        messages.warning(request, "La cantidad supera el stock disponible.")
+    elif producto_key in carrito:
+        carrito[producto_key] = cantidad
+        guardar_carrito(request, carrito)
+
+    next_url = request.POST.get("next", "")
+    if next_url.startswith("/"):
+        return redirect(next_url)
+    return redirect("pedido_paso2")
 
 
 @comercio_requerido
