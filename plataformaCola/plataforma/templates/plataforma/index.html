@@ -47,7 +47,7 @@
                                 <a class="list-group-item list-group-item-action px-0" href="{% url 'pedido_detalle' pedido.id %}">
                                     <div class="d-flex justify-content-between gap-3">
                                         <strong>Pedido #{{ pedido.id }}</strong>
-                                        <span class="badge badge-brand">{{ pedido.estado }}</span>
+                                        {% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}
                                     </div>
                                     <small class="text-muted">{{ pedido.fecha|date:"d/m/Y H:i" }} - ${{ pedido.monto_total|floatformat:2 }}</small>
                                 </a>

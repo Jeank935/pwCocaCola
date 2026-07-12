@@ -8,7 +8,10 @@
         <div>
             <p class="brand-eyebrow">Detalle</p>
             <h1 class="brand-title h2">Pedido #{{ pedido.id }}</h1>
-            <p class="text-muted mb-0">{{ pedido.fecha|date:"d/m/Y H:i" }} - {{ pedido.estado }}</p>
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+                <span class="text-muted">{{ pedido.fecha|date:"d/m/Y H:i" }}</span>
+                {% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}
+            </div>
         </div>
         <a class="btn btn-accent" href="{% url 'reordenar_pedido' pedido.id %}">Reordenar</a>
     </div>

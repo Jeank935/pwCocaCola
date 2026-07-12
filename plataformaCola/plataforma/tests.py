@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.utils import timezone
 
@@ -12,6 +13,8 @@ from .incentivos import (
 )
 from .models import (
     Comercio,
+    DetallePedido,
+    Entrega,
     Incentivo,
     MovimientoPuntos,
     Pedido,
@@ -269,3 +272,126 @@ class FlujoPedidoIntegracionTests(TestCase):
 
         self.producto.refresh_from_db()
         self.assertEqual(self.producto.stock, 990)
+
+
+class AdministracionTests(TestCase):
+    def setUp(self):
+        self.comercio = Comercio.objects.create(
+            ruc="1100000001",
+            nombre_comercial="Tienda Central",
+            direccion="Zona Norte",
+            contacto="0990000000",
+            categoria="Estandar",
+            volumen_90d=0,
+            estado="Activo",
+        )
+        self.administrador = Usuario.objects.create(
+            email="admin@isben.test",
+            password_hash=make_password("prueba123"),
+            rol="Administrador",
+            ultima_sesion=timezone.now(),
+            comercio=None,
+        )
+        self.usuario_comercio = Usuario.objects.create(
+            email="comercio@isben.test",
+            password_hash=make_password("prueba123"),
+            rol="Comercio",
+            ultima_sesion=timezone.now(),
+            comercio=self.comercio,
+        )
+        self.usuario_logistica = Usuario.objects.create(
+            email="logistica@isben.test",
+            password_hash=make_password("prueba123"),
+            rol="Logistica",
+            ultima_sesion=timezone.now(),
+            comercio=None,
+        )
+        self.producto = Producto.objects.create(
+            nombre="Cola vidrio",
+            precio=1.25,
+            stock=50,
+            activo=True,
+            imagen_url="",
+        )
+        self.pedido = Pedido.objects.create(
+            fecha=timezone.now(),
+            estado="Confirmado",
+            monto_total=12.5,
+            descuento=0,
+            sincronizado=False,
+            comercio=self.comercio,
+            usuario=self.usuario_comercio,
+        )
+        DetallePedido.objects.create(
+            cantidad=10,
+            precio_unitario=1.25,
+            subtotal=12.5,
+            pedido=self.pedido,
+            producto=self.producto,
+        )
+        self.ruta_norte = Ruta.objects.create(
+            zona="Norte",
+            capacidad_max=100,
+            vehiculo="Camion 1",
+        )
+        Ruta.objects.create(
+            zona="Sur",
+            capacidad_max=100,
+            vehiculo="Camion 2",
+        )
+        Entrega.objects.create(
+            fecha_estimada=timezone.now(),
+            tipo_confirmacion="Codigo",
+            pedido=self.pedido,
+            ruta=self.ruta_norte,
+        )
+
+    def iniciar_como(self, usuario):
+        session = self.client.session
+        session["usuario_id"] = usuario.id
+        session["usuario_rol"] = usuario.rol
+        session.save()
+
+    def test_administrador_accede_al_dashboard(self):
+        self.iniciar_como(self.administrador)
+        response = self.client.get("/administracion/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Dashboard general")
+
+    def test_comercio_no_accede_al_dashboard(self):
+        self.iniciar_como(self.usuario_comercio)
+        response = self.client.get("/administracion/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/")
+
+    def test_logistica_funciona_sin_comercio(self):
+        self.iniciar_como(self.usuario_logistica)
+        response = self.client.get("/logistica/pedidos/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_rol_comercio_requiere_asociacion(self):
+        usuario = Usuario(
+            email="sin-comercio@isben.test",
+            password_hash=make_password("prueba123"),
+            rol="Comercio",
+            ultima_sesion=timezone.now(),
+            comercio=None,
+        )
+        with self.assertRaises(ValidationError):
+            usuario.full_clean()
+
+    def test_reporte_filtra_por_zona(self):
+        self.iniciar_como(self.administrador)
+        response_norte = self.client.get("/administracion/reportes/", {"zona": "Norte"})
+        response_sur = self.client.get("/administracion/reportes/", {"zona": "Sur"})
+        self.assertEqual(response_norte.context["resumen"]["cantidad"], 1)
+        self.assertEqual(response_sur.context["resumen"]["cantidad"], 0)
+
+    def test_exportaciones_csv_y_pdf(self):
+        self.iniciar_como(self.administrador)
+        response_csv = self.client.get("/administracion/reportes/csv/", {"zona": "Norte"})
+        response_pdf = self.client.get("/administracion/reportes/pdf/", {"zona": "Norte"})
+        self.assertEqual(response_csv.status_code, 200)
+        self.assertIn("Tienda Central", response_csv.content.decode("utf-8"))
+        self.assertEqual(response_pdf.status_code, 200)
+        self.assertTrue(response_pdf.content.startswith(b"%PDF"))

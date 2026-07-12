@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # Create your models here.
@@ -31,8 +32,20 @@ class Usuario(models.Model):
     password_hash = models.CharField(max_length=255)
     rol = models.CharField(max_length=50)
     ultima_sesion = models.DateTimeField()
-    comercio = models.ForeignKey(Comercio, on_delete=models.CASCADE, 
-    related_name="usuarios")
+    comercio = models.ForeignKey(
+        Comercio,
+        on_delete=models.CASCADE,
+        related_name="usuarios",
+        null=True,
+        blank=True,
+    )
+
+    def clean(self):
+        super().clean()
+        if self.rol.strip().lower() == "comercio" and not self.comercio_id:
+            raise ValidationError(
+                {"comercio": "Los usuarios con rol Comercio requieren un comercio asociado."}
+            )
 
     def __str__(self):
         return "%s %s" % (self.email, self.rol)

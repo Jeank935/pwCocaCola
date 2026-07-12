@@ -1,0 +1,113 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Pedidos de logistica | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="mb-4">
+        <p class="brand-eyebrow">Logistica</p>
+        <h1 class="brand-title h2">Gestion de pedidos</h1>
+    </div>
+
+    <ul class="nav nav-tabs logistics-tabs mb-3" id="logisticsPanels" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending-panel" type="button" role="tab" aria-controls="pending-panel" aria-selected="true">
+                Por confirmar <span class="logistics-tab-count">{{ pedidos_pendientes_count }}</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="confirmed-tab" data-bs-toggle="tab" data-bs-target="#confirmed-panel" type="button" role="tab" aria-controls="confirmed-panel" aria-selected="false">
+                Confirmados <span class="logistics-tab-count">{{ pedidos_confirmados_count }}</span>
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="logisticsPanelsContent">
+        <div class="tab-pane fade show active" id="pending-panel" role="tabpanel" aria-labelledby="pending-tab" tabindex="0">
+            <div class="brand-card overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table brand-table logistics-table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Comercio</th>
+                                <th>Fecha</th>
+                                <th>Productos</th>
+                                <th class="text-end">Total</th>
+                                <th class="text-end"><span class="visually-hidden">Acciones</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pedido in pedidos_pendientes %}
+                                <tr>
+                                    <td><strong>#{{ pedido.id }}</strong></td>
+                                    <td>
+                                        <strong>{{ pedido.comercio.nombre_comercial }}</strong>
+                                        <span class="d-block text-muted small">{{ pedido.comercio.direccion }}</span>
+                                    </td>
+                                    <td class="text-nowrap">{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        <span>{{ pedido.productos_count }} productos &middot; {{ pedido.unidades_total|default:0 }} unidades</span>
+                                        <details class="logistics-order-details">
+                                            <summary>Ver detalle</summary>
+                                            <ul>
+                                                {% for detalle in pedido.detalles.all %}
+                                                    <li>{{ detalle.producto.nombre }} <strong>x{{ detalle.cantidad }}</strong></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </details>
+                                    </td>
+                                    <td class="text-end fw-bold text-nowrap">${{ pedido.monto_total|floatformat:2 }}</td>
+                                    <td class="text-end">
+                                        <form method="post" action="{% url 'confirmar_pedido_logistica' pedido.id %}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-sm btn-brand text-nowrap" type="submit">Confirmar pedido</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-5">No hay pedidos pendientes.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="confirmed-panel" role="tabpanel" aria-labelledby="confirmed-tab" tabindex="0">
+            <div class="brand-card overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table brand-table logistics-table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Comercio</th>
+                                <th>Fecha</th>
+                                <th class="text-end">Total</th>
+                                <th class="text-end">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pedido in pedidos_confirmados %}
+                                <tr>
+                                    <td><strong>#{{ pedido.id }}</strong></td>
+                                    <td>{{ pedido.comercio.nombre_comercial }}</td>
+                                    <td>{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                                    <td class="text-end">${{ pedido.monto_total|floatformat:2 }}</td>
+                                    <td class="text-end">{% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-5">No hay pedidos confirmados.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

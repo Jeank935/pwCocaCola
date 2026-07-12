@@ -28,7 +28,7 @@
                         <tr>
                             <td>{{ pedido.id }}</td>
                             <td>{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
-                            <td><span class="badge badge-brand">{{ pedido.estado }}</span></td>
+                            <td>{% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}</td>
                             <td class="text-end">${{ pedido.monto_total|floatformat:2 }}</td>
                             <td class="text-end">
                                 <a class="btn btn-sm btn-outline-brand" href="{% url 'pedido_detalle' pedido.id %}">Ver</a>

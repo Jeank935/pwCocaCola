@@ -1,0 +1,108 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Reportes administrativos | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div>
+            <p class="brand-eyebrow">Administracion</p>
+            <h1 class="brand-title h2">Reportes globales</h1>
+        </div>
+        <a class="btn btn-outline-brand" href="{% url 'dashboard_administracion' %}">Volver al dashboard</a>
+    </div>
+
+    <form class="brand-card p-3 mb-4" method="get" novalidate>
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger mb-3">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="row g-2 align-items-end">
+            {% for field in form %}
+                <div class="col-md-6 col-xl">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+                </div>
+            {% endfor %}
+            <div class="col-md-auto">
+                <button class="btn btn-brand w-100" type="submit">Filtrar</button>
+            </div>
+            <div class="col-md-auto">
+                <a class="btn btn-outline-brand w-100" href="{% url 'reportes_administracion_csv' %}?{{ request.GET.urlencode }}">CSV</a>
+            </div>
+            <div class="col-md-auto">
+                <a class="btn btn-outline-brand w-100" href="{% url 'reportes_administracion_pdf' %}?{{ request.GET.urlencode }}">PDF</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Pedidos</span>
+                <strong>{{ resumen.cantidad }}</strong>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Comercios</span>
+                <strong>{{ resumen.comercios }}</strong>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Ventas</span>
+                <strong>${{ resumen.total|floatformat:2 }}</strong>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Descuentos</span>
+                <strong>${{ resumen.descuentos|floatformat:2 }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-card overflow-hidden">
+        <div class="table-responsive">
+            <table class="table brand-table admin-report-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Fecha</th>
+                        <th>Comercio</th>
+                        <th>Zona</th>
+                        <th>Estado</th>
+                        <th class="text-end">Descuento</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td><strong>#{{ pedido.id }}</strong></td>
+                            <td class="text-nowrap">{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                {{ pedido.comercio.nombre_comercial }}
+                                <span class="d-block text-muted small">{{ pedido.comercio.ruc }}</span>
+                            </td>
+                            <td>
+                                {% for entrega in pedido.entregas.all %}
+                                    {{ entrega.ruta.zona }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    <span class="text-muted">Sin ruta</span>
+                                {% endfor %}
+                            </td>
+                            <td>{% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}</td>
+                            <td class="text-end">${{ pedido.descuento|floatformat:2 }}</td>
+                            <td class="text-end fw-bold">${{ pedido.monto_total|floatformat:2 }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="7" class="text-center text-muted py-5">No hay datos para los filtros aplicados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

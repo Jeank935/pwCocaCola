@@ -382,6 +382,181 @@ a:hover {
     outline-offset: -2px;
 }
 
+.logistics-tabs {
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--brand-border);
+}
+
+.logistics-tabs .nav-link {
+    padding: 0.65rem 0.9rem;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--brand-muted);
+    font-weight: 700;
+}
+
+.logistics-tabs .nav-link:hover {
+    border-bottom-color: rgba(var(--brand-orange-rgb), 0.35);
+    color: var(--brand-orange);
+}
+
+.logistics-tabs .nav-link.active {
+    border-bottom-color: var(--brand-orange);
+    background: transparent;
+    color: var(--brand-orange);
+}
+
+.logistics-tab-count {
+    display: inline-grid;
+    min-width: 1.45rem;
+    height: 1.45rem;
+    place-items: center;
+    margin-left: 0.3rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: #e8eaed;
+    color: #4b5563;
+    font-size: 0.72rem;
+}
+
+.logistics-tabs .nav-link.active .logistics-tab-count {
+    background: rgba(var(--brand-orange-rgb), 0.12);
+    color: var(--brand-orange);
+}
+
+.logistics-table th,
+.logistics-table td {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+}
+
+.logistics-order-details {
+    margin-top: 0.3rem;
+    font-size: 0.78rem;
+}
+
+.logistics-order-details summary {
+    width: max-content;
+    color: var(--brand-orange);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.logistics-order-details ul {
+    margin: 0.4rem 0 0;
+    padding-left: 1rem;
+    color: var(--brand-muted);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 1.65rem;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.status-badge-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.status-badge-confirmed {
+    border-color: #a8d8b8;
+    background: #edf8f1;
+    color: #18753b;
+}
+
+.status-badge-pending {
+    border-color: #e4b45c;
+    background: #fff7e6;
+    color: #9a5b00;
+}
+
+.status-badge-neutral {
+    border-color: #cfd4da;
+    background: #f4f5f6;
+    color: #5f6670;
+}
+
+.admin-metric span {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--brand-muted);
+    font-size: 0.8rem;
+}
+
+.admin-metric strong {
+    display: block;
+    color: var(--brand-dark);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+}
+
+.admin-section-heading {
+    padding: 1rem 1.15rem;
+    border-bottom: 1px solid var(--brand-border);
+    background: #fafbfc;
+}
+
+.admin-section-heading h2 {
+    margin: 0;
+    color: var(--brand-dark);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.admin-stock-list {
+    display: grid;
+}
+
+.admin-stock-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--brand-border);
+}
+
+.admin-stock-item:last-child {
+    border-bottom: 0;
+}
+
+.admin-stock-item span {
+    min-width: 0;
+}
+
+.admin-stock-item strong {
+    display: inline-grid;
+    min-width: 2rem;
+    height: 1.7rem;
+    place-items: center;
+    border-radius: 6px;
+    background: #fff0ed;
+    color: #b42318;
+    font-size: 0.78rem;
+}
+
+.admin-report-table th,
+.admin-report-table td {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+
 .product-card {
     display: flex;
     flex-direction: column;

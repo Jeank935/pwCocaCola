@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from django.contrib.auth.hashers import identify_hasher, make_password
 
 # Importar las clases del modelo
 from plataforma.models import (
@@ -30,6 +31,21 @@ class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('email', 'rol', 'comercio')
     search_fields = ('email', 'rol')
     raw_id_fields = ('comercio',)
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        password_field = form.base_fields["password_hash"]
+        password_field.label = "Contrasena de acceso"
+        password_field.help_text = "Escribe la contrasena que usara el usuario para iniciar sesion."
+        password_field.widget = forms.PasswordInput(render_value=True)
+        return form
+
+    def save_model(self, request, obj, form, change):
+        try:
+            identify_hasher(obj.password_hash)
+        except ValueError:
+            obj.password_hash = make_password(obj.password_hash)
+        super().save_model(request, obj, form, change)
 
 admin.site.register(Usuario, UsuarioAdmin)
 

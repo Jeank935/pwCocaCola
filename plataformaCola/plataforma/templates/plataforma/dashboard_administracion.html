@@ -1,0 +1,123 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Administracion | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div>
+            <p class="brand-eyebrow">Administracion</p>
+            <h1 class="brand-title h2">Dashboard general</h1>
+        </div>
+        <a class="btn btn-outline-brand" href="{% url 'reportes_administracion' %}">Ver reportes</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Ventas totales</span>
+                <strong>${{ resumen.ventas|floatformat:2 }}</strong>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Pedidos</span>
+                <strong>{{ resumen.pedidos }}</strong>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Comercios activos</span>
+                <strong>{{ resumen.comercios_activos }}</strong>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="brand-panel admin-metric p-3 h-100">
+                <span>Entregas pendientes</span>
+                <strong>{{ resumen.entregas_pendientes }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="brand-card overflow-hidden h-100">
+                <div class="admin-section-heading">
+                    <h2>Pedidos recientes</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table brand-table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Comercio</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pedido in pedidos_recientes %}
+                                <tr>
+                                    <td><strong>#{{ pedido.id }}</strong></td>
+                                    <td>{{ pedido.comercio.nombre_comercial }}</td>
+                                    <td class="text-nowrap">{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                                    <td>{% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}</td>
+                                    <td class="text-end fw-bold">${{ pedido.monto_total|floatformat:2 }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr><td colspan="5" class="text-center text-muted py-4">No hay pedidos registrados.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="brand-card overflow-hidden h-100">
+                <div class="admin-section-heading">
+                    <h2>Stock bajo</h2>
+                </div>
+                <div class="admin-stock-list">
+                    {% for producto in productos_bajo_stock %}
+                        <div class="admin-stock-item">
+                            <span>{{ producto.nombre }}</span>
+                            <strong>{{ producto.stock }}</strong>
+                        </div>
+                    {% empty %}
+                        <p class="text-muted p-3 mb-0">No hay productos con stock bajo.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-card overflow-hidden">
+        <div class="admin-section-heading">
+            <h2>Pedidos por estado</h2>
+        </div>
+        <div class="table-responsive">
+            <table class="table brand-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th class="text-end">Pedidos</th>
+                        <th class="text-end">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grupo in pedidos_por_estado %}
+                        <tr>
+                            <td>{% include 'plataforma/partials/estado_pedido.html' with estado=grupo.estado %}</td>
+                            <td class="text-end">{{ grupo.cantidad }}</td>
+                            <td class="text-end">${{ grupo.total|floatformat:2 }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="text-center text-muted py-4">No hay datos disponibles.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

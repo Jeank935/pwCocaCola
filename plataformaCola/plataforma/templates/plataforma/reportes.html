@@ -53,7 +53,7 @@
                         <tr>
                             <td>{{ pedido.id }}</td>
                             <td>{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
-                            <td>{{ pedido.estado }}</td>
+                            <td>{% include 'plataforma/partials/estado_pedido.html' with estado=pedido.estado %}</td>
                             <td class="text-end">${{ pedido.descuento|floatformat:2 }}</td>
                             <td class="text-end">${{ pedido.monto_total|floatformat:2 }}</td>
                         </tr>

@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 
 from .incentivos import crear_incentivos_por_defecto
-from .models import Comercio, Entrega, Usuario
+from .models import Comercio, Pedido, Ruta, Usuario
 
 
 class RegistroComercioForm(forms.Form):
@@ -82,21 +82,6 @@ class ComercioForm(forms.ModelForm):
             field.widget.attrs.setdefault("class", "form-control")
 
 
-class EntregaConfirmacionForm(forms.ModelForm):
-    class Meta:
-        model = Entrega
-        fields = ["tipo_confirmacion", "evidencia_url"]
-        labels = {
-            "tipo_confirmacion": "Tipo de confirmacion",
-            "evidencia_url": "Evidencia URL",
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs.setdefault("class", "form-control")
-
-
 class ReporteFiltroForm(forms.Form):
     estado = forms.CharField(max_length=50, required=False, label="Estado")
     fecha_desde = forms.DateField(
@@ -114,3 +99,37 @@ class ReporteFiltroForm(forms.Form):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.setdefault("class", "form-control")
+
+
+class ReporteAdministrativoFiltroForm(forms.Form):
+    zona = forms.ChoiceField(required=False, label="Zona")
+    fecha_desde = forms.DateField(
+        required=False,
+        label="Desde",
+        widget=forms.DateInput(attrs={"type": "date"}),
+    )
+    fecha_hasta = forms.DateField(
+        required=False,
+        label="Hasta",
+        widget=forms.DateInput(attrs={"type": "date"}),
+    )
+    estado = forms.ChoiceField(required=False, label="Estado")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        zonas = Ruta.objects.order_by("zona").values_list("zona", flat=True).distinct()
+        estados = Pedido.objects.order_by("estado").values_list("estado", flat=True).distinct()
+        self.fields["zona"].choices = [("", "Todas")] + [(zona, zona) for zona in zonas]
+        self.fields["estado"].choices = [("", "Todos")] + [
+            (estado, estado) for estado in estados
+        ]
+        for field in self.fields.values():
+            field.widget.attrs.setdefault("class", "form-control")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        fecha_desde = cleaned_data.get("fecha_desde")
+        fecha_hasta = cleaned_data.get("fecha_hasta")
+        if fecha_desde and fecha_hasta and fecha_desde > fecha_hasta:
+            raise forms.ValidationError("La fecha inicial no puede superar la fecha final.")
+        return cleaned_data
