@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 
+from .incentivos import crear_incentivos_por_defecto
 from .models import Comercio, Entrega, Usuario
 
 
@@ -51,6 +52,7 @@ class RegistroComercioForm(forms.Form):
             ultima_sesion=timezone.now(),
             comercio=comercio,
         )
+        crear_incentivos_por_defecto(comercio)
         return usuario
 
 

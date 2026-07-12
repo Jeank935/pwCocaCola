@@ -1,9 +1,12 @@
+from django import forms
 from django.contrib import admin
 
 # Importar las clases del modelo
 from plataforma.models import (
-    Comercio, Incentivo, Usuario, Producto, Pedido, 
-    Ruta, Notificacion, DetallePedido, Entrega
+    Comercio, Incentivo, Usuario, Producto, Pedido,
+    Ruta, Notificacion, DetallePedido, Entrega,
+    PlantillaIncentivo, ReglaCategoria, ReglaFrecuencia,
+    PuntosFidelidad, MovimientoPuntos,
 )
 
 # Se crea una clase que hereda
@@ -72,3 +75,69 @@ class EntregaAdmin(admin.ModelAdmin):
     raw_id_fields = ('pedido', 'ruta')
 
 admin.site.register(Entrega, EntregaAdmin)
+
+
+# --- Sprint 4: Motor de Incentivos ---
+
+class PlantillaIncentivoForm(forms.ModelForm):
+    class Meta:
+        model = PlantillaIncentivo
+        fields = "__all__"
+
+    def clean(self):
+        cleaned = super().clean()
+        umbral_min = cleaned.get("umbral_min")
+        umbral_max = cleaned.get("umbral_max")
+        if umbral_min is not None and umbral_max is not None and umbral_min >= umbral_max:
+            raise forms.ValidationError("El umbral minimo debe ser menor al umbral maximo.")
+        return cleaned
+
+
+class PlantillaIncentivoAdmin(admin.ModelAdmin):
+    form = PlantillaIncentivoForm
+    list_display = ('tipo', 'umbral_min', 'umbral_max', 'descuento_pct', 'activa')
+    list_filter = ('activa',)
+
+admin.site.register(PlantillaIncentivo, PlantillaIncentivoAdmin)
+
+
+class ReglaCategoriaForm(forms.ModelForm):
+    class Meta:
+        model = ReglaCategoria
+        fields = "__all__"
+
+    def clean_volumen_min(self):
+        volumen_min = self.cleaned_data["volumen_min"]
+        if volumen_min < 0:
+            raise forms.ValidationError("El volumen minimo no puede ser negativo.")
+        return volumen_min
+
+
+class ReglaCategoriaAdmin(admin.ModelAdmin):
+    form = ReglaCategoriaForm
+    list_display = ('categoria', 'volumen_min', 'bono_descuento_pct')
+    ordering = ('volumen_min',)
+
+admin.site.register(ReglaCategoria, ReglaCategoriaAdmin)
+
+
+class ReglaFrecuenciaAdmin(admin.ModelAdmin):
+    list_display = ('ventana_dias', 'pedidos_minimos', 'puntos_por_dolar', 'bono_puntos', 'activa')
+    list_filter = ('activa',)
+
+admin.site.register(ReglaFrecuencia, ReglaFrecuenciaAdmin)
+
+
+class PuntosFidelidadAdmin(admin.ModelAdmin):
+    list_display = ('comercio', 'puntos', 'actualizado_en')
+    raw_id_fields = ('comercio',)
+
+admin.site.register(PuntosFidelidad, PuntosFidelidadAdmin)
+
+
+class MovimientoPuntosAdmin(admin.ModelAdmin):
+    list_display = ('comercio', 'motivo', 'puntos', 'creado_en')
+    list_filter = ('motivo',)
+    raw_id_fields = ('comercio', 'pedido')
+
+admin.site.register(MovimientoPuntos, MovimientoPuntosAdmin)

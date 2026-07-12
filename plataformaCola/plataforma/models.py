@@ -105,3 +105,83 @@ class Entrega(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.fecha_estimada, self.tipo_confirmacion)
+
+
+# --- Sprint 4: Motor de Incentivos (categoria comercial, descuentos por volumen y frecuencia) ---
+
+CATEGORIA_ESTANDAR = "Estandar"
+CATEGORIA_PREFERENTE = "Preferente"
+CATEGORIA_ESTRATEGICO = "Estrategico"
+
+CATEGORIA_CHOICES = [
+    (CATEGORIA_ESTANDAR, "Comercio Estandar"),
+    (CATEGORIA_PREFERENTE, "Comercio Preferente"),
+    (CATEGORIA_ESTRATEGICO, "Comercio Estrategico"),
+]
+
+
+class PlantillaIncentivo(models.Model):
+    """Tramos de descuento por volumen que se copian a todo comercio nuevo (RF-05)."""
+    tipo = models.CharField(max_length=100)
+    umbral_min = models.FloatField()
+    umbral_max = models.FloatField()
+    descuento_pct = models.FloatField()
+    activa = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["umbral_min"]
+
+    def __str__(self):
+        return "%s %s" % (self.tipo, self.descuento_pct)
+
+
+class ReglaCategoria(models.Model):
+    """Umbral de volumen acumulado (90 dias) y bono de descuento por categoria comercial (RF-05)."""
+    categoria = models.CharField(max_length=20, choices=CATEGORIA_CHOICES, unique=True)
+    volumen_min = models.FloatField()
+    bono_descuento_pct = models.FloatField(default=0)
+    beneficio_descripcion = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["volumen_min"]
+
+    def __str__(self):
+        return "%s %s" % (self.categoria, self.volumen_min)
+
+
+class ReglaFrecuencia(models.Model):
+    """Parametros de la bonificacion por frecuencia de pedidos (RF-05)."""
+    ventana_dias = models.IntegerField(default=30)
+    pedidos_minimos = models.IntegerField(default=4)
+    puntos_por_dolar = models.FloatField(default=1)
+    bono_puntos = models.IntegerField(default=50)
+    activa = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "Frecuencia %sd / %s pedidos" % (self.ventana_dias, self.pedidos_minimos)
+
+
+class PuntosFidelidad(models.Model):
+    comercio = models.OneToOneField(Comercio, on_delete=models.CASCADE,
+    related_name="puntos_fidelidad")
+    puntos = models.IntegerField(default=0)
+    actualizado_en = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s %s" % (self.comercio, self.puntos)
+
+
+class MovimientoPuntos(models.Model):
+    comercio = models.ForeignKey(Comercio, on_delete=models.CASCADE,
+    related_name="movimientos_puntos")
+    pedido = models.ForeignKey(Pedido, on_delete=models.SET_NULL, null=True, blank=True,
+    related_name="movimientos_puntos")
+    puntos = models.IntegerField()
+    motivo = models.CharField(max_length=50)
+    creado_en = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-creado_en"]
+
+    def __str__(self):
+        return "%s %s" % (self.motivo, self.puntos)

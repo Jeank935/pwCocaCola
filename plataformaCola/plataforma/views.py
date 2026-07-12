@@ -4,6 +4,7 @@ from functools import wraps
 
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
+from django.db import transaction
 from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -16,7 +17,13 @@ from .forms import (
     RegistroComercioForm,
     ReporteFiltroForm,
 )
-from .models import DetallePedido, Entrega, Incentivo, Pedido, Producto, Ruta, Usuario
+from .incentivos import (
+    calcular_descuento_pedido,
+    evaluar_bonificacion_frecuencia,
+    recalcular_categoria,
+    siguiente_categoria,
+)
+from .models import DetallePedido, Entrega, Pedido, Producto, PuntosFidelidad, Ruta, Usuario
 
 
 def obtener_usuario_actual(request):
@@ -67,23 +74,6 @@ def obtener_items_carrito(carrito):
             }
         )
     return items, total
-
-
-def calcular_incentivo(comercio, total):
-    incentivo = (
-        Incentivo.objects.filter(
-            comercio=comercio,
-            activo=True,
-            umbral_min__lte=total,
-            umbral_max__gte=total,
-        )
-        .order_by("-descuento_pct")
-        .first()
-    )
-    descuento = 0
-    if incentivo:
-        descuento = total * (incentivo.descuento_pct / 100)
-    return incentivo, descuento
 
 
 def index(request):
@@ -202,12 +192,12 @@ def pedido_paso1(request):
 def pedido_paso2(request):
     carrito = obtener_carrito(request)
     items, subtotal = obtener_items_carrito(carrito)
-    incentivo, descuento = calcular_incentivo(request.comercio_actual, subtotal)
-    total = subtotal - descuento
 
     if not items:
         messages.warning(request, "Agrega productos antes de continuar.")
         return redirect("catalogo")
+
+    calculo = calcular_descuento_pedido(request.comercio_actual, subtotal)
 
     return render(
         request,
@@ -215,9 +205,12 @@ def pedido_paso2(request):
         {
             "items": items,
             "subtotal": subtotal,
-            "incentivo": incentivo,
-            "descuento": descuento,
-            "total": total,
+            "incentivo": calculo["incentivo"],
+            "descuento": calculo["descuento"],
+            "descuento_volumen_pct": calculo["descuento_volumen_pct"],
+            "bono_categoria_pct": calculo["bono_categoria_pct"],
+            "descuento_pct_total": calculo["descuento_pct_total"],
+            "total": calculo["total"],
         },
     )
 
@@ -230,41 +223,44 @@ def pedido_paso3(request):
         messages.warning(request, "No hay productos para confirmar.")
         return redirect("catalogo")
 
-    incentivo, descuento = calcular_incentivo(request.comercio_actual, subtotal)
-    total = subtotal - descuento
+    calculo = calcular_descuento_pedido(request.comercio_actual, subtotal)
 
     if request.method == "POST":
-        pedido = Pedido.objects.create(
-            fecha=timezone.now(),
-            estado="Pendiente",
-            monto_total=total,
-            descuento=descuento,
-            sincronizado=False,
-            comercio=request.comercio_actual,
-            usuario=request.usuario_plataforma,
-        )
-
-        for item in items:
-            producto = item["producto"]
-            cantidad = item["cantidad"]
-            DetallePedido.objects.create(
-                cantidad=cantidad,
-                precio_unitario=producto.precio,
-                subtotal=item["subtotal"],
-                pedido=pedido,
-                producto=producto,
+        with transaction.atomic():
+            pedido = Pedido.objects.create(
+                fecha=timezone.now(),
+                estado="Pendiente",
+                monto_total=calculo["total"],
+                descuento=calculo["descuento"],
+                sincronizado=False,
+                comercio=request.comercio_actual,
+                usuario=request.usuario_plataforma,
             )
-            producto.stock = max(producto.stock - cantidad, 0)
-            producto.save(update_fields=["stock"])
 
-        ruta = Ruta.objects.order_by("id").first()
-        if ruta:
-            Entrega.objects.create(
-                fecha_estimada=timezone.now() + timedelta(days=2),
-                tipo_confirmacion="Codigo",
-                pedido=pedido,
-                ruta=ruta,
-            )
+            for item in items:
+                producto = item["producto"]
+                cantidad = item["cantidad"]
+                DetallePedido.objects.create(
+                    cantidad=cantidad,
+                    precio_unitario=producto.precio,
+                    subtotal=item["subtotal"],
+                    pedido=pedido,
+                    producto=producto,
+                )
+                producto.stock = max(producto.stock - cantidad, 0)
+                producto.save(update_fields=["stock"])
+
+            ruta = Ruta.objects.order_by("id").first()
+            if ruta:
+                Entrega.objects.create(
+                    fecha_estimada=timezone.now() + timedelta(days=2),
+                    tipo_confirmacion="Codigo",
+                    pedido=pedido,
+                    ruta=ruta,
+                )
+
+            recalcular_categoria(pedido.comercio)
+            evaluar_bonificacion_frecuencia(pedido.comercio, pedido)
 
         guardar_carrito(request, {})
         messages.success(request, "Pedido confirmado correctamente.")
@@ -276,9 +272,12 @@ def pedido_paso3(request):
         {
             "items": items,
             "subtotal": subtotal,
-            "incentivo": incentivo,
-            "descuento": descuento,
-            "total": total,
+            "incentivo": calculo["incentivo"],
+            "descuento": calculo["descuento"],
+            "descuento_volumen_pct": calculo["descuento_volumen_pct"],
+            "bono_categoria_pct": calculo["bono_categoria_pct"],
+            "descuento_pct_total": calculo["descuento_pct_total"],
+            "total": calculo["total"],
         },
     )
 
@@ -341,8 +340,22 @@ def notificaciones(request):
 
 @comercio_requerido
 def incentivos(request):
-    incentivos_comercio = request.comercio_actual.incentivos.order_by("umbral_min")
-    return render(request, "plataforma/incentivos.html", {"incentivos": incentivos_comercio})
+    comercio = request.comercio_actual
+    incentivos_comercio = comercio.incentivos.order_by("umbral_min")
+    puntos_cuenta = PuntosFidelidad.objects.filter(comercio=comercio).first()
+    regla_siguiente, volumen_faltante = siguiente_categoria(comercio)
+
+    return render(
+        request,
+        "plataforma/incentivos.html",
+        {
+            "incentivos": incentivos_comercio,
+            "comercio": comercio,
+            "puntos": puntos_cuenta.puntos if puntos_cuenta else 0,
+            "siguiente_categoria": regla_siguiente.categoria if regla_siguiente else None,
+            "volumen_faltante": volumen_faltante,
+        },
+    )
 
 
 @comercio_requerido
