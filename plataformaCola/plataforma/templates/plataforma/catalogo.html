@@ -1,0 +1,51 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Catalogo | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div>
+            <p class="brand-eyebrow">Paso 1</p>
+            <h1 class="brand-title h2">Catalogo de productos</h1>
+        </div>
+        <a class="btn btn-accent" href="{% url 'pedido_paso2' %}">Continuar pedido</a>
+    </div>
+
+    <form class="brand-card p-3 mb-4" method="get">
+        <div class="row g-2">
+            <div class="col-md">
+                <input class="form-control" type="search" name="q" value="{{ busqueda }}" placeholder="Buscar producto">
+            </div>
+            <div class="col-md-auto">
+                <button class="btn btn-outline-brand w-100" type="submit">Buscar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row g-3">
+        {% for producto in productos %}
+            <div class="col-md-6 col-xl-4">
+                <article class="brand-card p-3 h-100">
+                    <div class="d-flex justify-content-between gap-3">
+                        <div>
+                            <h2 class="h5 mb-1">{{ producto.nombre }}</h2>
+                            <p class="text-muted small mb-2">Stock disponible: {{ producto.stock }}</p>
+                        </div>
+                        <span class="badge badge-accent align-self-start">${{ producto.precio|floatformat:2 }}</span>
+                    </div>
+                    <form class="d-flex gap-2 mt-3" method="post" action="{% url 'agregar_producto' producto.id %}">
+                        {% csrf_token %}
+                        <input class="form-control" type="number" name="cantidad" value="1" min="1" max="{{ producto.stock }}" aria-label="Cantidad">
+                        <button class="btn btn-brand" type="submit">Agregar</button>
+                    </form>
+                </article>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="brand-card p-4 text-center text-muted">No hay productos activos para mostrar.</div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

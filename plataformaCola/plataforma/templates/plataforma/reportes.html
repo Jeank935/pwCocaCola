@@ -1,0 +1,68 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Reportes | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <p class="brand-eyebrow">Analisis</p>
+    <h1 class="brand-title h2 mb-4">Reportes de pedidos</h1>
+    <form class="brand-card p-3 mb-4" method="get">
+        <div class="row g-2 align-items-end">
+            {% for field in form %}
+                <div class="col-md">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <div class="col-md-auto">
+                <button class="btn btn-brand w-100" type="submit">Filtrar</button>
+            </div>
+            <div class="col-md-auto">
+                <a class="btn btn-outline-brand w-100" href="{% url 'reportes_csv' %}?{{ request.GET.urlencode }}">Exportar CSV</a>
+            </div>
+        </div>
+    </form>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="brand-panel p-3">
+                <span class="text-muted d-block">Pedidos</span>
+                <strong>{{ resumen.cantidad }}</strong>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="brand-panel p-3">
+                <span class="text-muted d-block">Total vendido</span>
+                <strong>${{ resumen.total|floatformat:2 }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="brand-card p-4">
+        <div class="table-responsive">
+            <table class="table brand-table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th class="text-end">Descuento</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{ pedido.id }}</td>
+                            <td>{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                            <td>{{ pedido.estado }}</td>
+                            <td class="text-end">${{ pedido.descuento|floatformat:2 }}</td>
+                            <td class="text-end">${{ pedido.monto_total|floatformat:2 }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="5" class="text-center text-muted">No hay datos para los filtros aplicados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

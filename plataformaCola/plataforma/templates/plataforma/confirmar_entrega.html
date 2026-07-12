@@ -1,0 +1,27 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Confirmar entrega | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="brand-card p-4">
+        <p class="brand-eyebrow">Entrega</p>
+        <h1 class="brand-title h2 mb-2">Confirmar pedido #{{ entrega.pedido.id }}</h1>
+        <p class="text-muted mb-4">Ruta {{ entrega.ruta.zona }} - fecha estimada {{ entrega.fecha_estimada|date:"d/m/Y H:i" }}</p>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button class="btn btn-brand" type="submit">Confirmar entrega</button>
+            <a class="btn btn-outline-brand" href="{% url 'entregas' %}">Volver</a>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Historial | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+        <div>
+            <p class="brand-eyebrow">Pedidos</p>
+            <h1 class="brand-title h2">Historial de pedidos</h1>
+        </div>
+        <a class="btn btn-brand" href="{% url 'catalogo' %}">Nuevo pedido</a>
+    </div>
+    <div class="brand-card p-4">
+        <div class="table-responsive">
+            <table class="table brand-table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th class="text-end">Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{ pedido.id }}</td>
+                            <td>{{ pedido.fecha|date:"d/m/Y H:i" }}</td>
+                            <td><span class="badge badge-brand">{{ pedido.estado }}</span></td>
+                            <td class="text-end">${{ pedido.monto_total|floatformat:2 }}</td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-outline-brand" href="{% url 'pedido_detalle' pedido.id %}">Ver</a>
+                                <a class="btn btn-sm btn-accent" href="{% url 'reordenar_pedido' pedido.id %}">Reordenar</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="5" class="text-center text-muted">No hay pedidos registrados.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

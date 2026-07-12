@@ -1,0 +1,79 @@
+{% extends 'plataforma/master.html' %}
+{% load static %}
+
+{% block title %}Inicio | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    {% if usuario %}
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-8">
+                <div class="brand-card p-4 h-100">
+                    <p class="brand-eyebrow">Panel comercial</p>
+                    <h1 class="brand-title h2">{{ comercio.nombre_comercial }}</h1>
+                    <p class="text-muted mb-4">Gestiona catalogo, pedidos, incentivos y entregas desde un solo lugar.</p>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="brand-panel p-3 h-100">
+                                <span class="text-muted d-block">Categoria</span>
+                                <strong>{{ comercio.categoria }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="brand-panel p-3 h-100">
+                                <span class="text-muted d-block">Volumen 90 dias</span>
+                                <strong>{{ comercio.volumen_90d|floatformat:2 }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="brand-panel p-3 h-100">
+                                <span class="text-muted d-block">Estado</span>
+                                <strong>{{ comercio.estado }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <a class="btn btn-brand" href="{% url 'catalogo' %}">Nuevo pedido</a>
+                        <a class="btn btn-outline-brand" href="{% url 'historial' %}">Ver historial</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="brand-card p-4 h-100">
+                    <p class="brand-eyebrow">Actividad reciente</p>
+                    {% if pedidos_recientes %}
+                        <div class="list-group list-group-flush">
+                            {% for pedido in pedidos_recientes %}
+                                <a class="list-group-item list-group-item-action px-0" href="{% url 'pedido_detalle' pedido.id %}">
+                                    <div class="d-flex justify-content-between gap-3">
+                                        <strong>Pedido #{{ pedido.id }}</strong>
+                                        <span class="badge badge-brand">{{ pedido.estado }}</span>
+                                    </div>
+                                    <small class="text-muted">{{ pedido.fecha|date:"d/m/Y H:i" }} - ${{ pedido.monto_total|floatformat:2 }}</small>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted mb-0">Aun no existen pedidos registrados.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <p class="brand-eyebrow">Plataforma B2B</p>
+                <h1 class="brand-title display-5">ISBEN Solution</h1>
+                <p class="lead text-muted mt-3">Autogestion de pedidos, incentivos y seguimiento para comercios aliados.</p>
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a class="btn btn-brand" href="{% url 'registro' %}">Registrar comercio</a>
+                    <a class="btn btn-outline-brand" href="{% url 'login' %}">Iniciar sesion</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img class="brand-logo brand-logo-vertical mx-auto" src="{% static 'plataforma/img/isben-logo-vertical-light.jpeg' %}" alt="ISBEN Solution">
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

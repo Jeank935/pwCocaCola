@@ -1,0 +1,25 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Perfil | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <div class="brand-card p-4">
+        <p class="brand-eyebrow">Comercio</p>
+        <h1 class="brand-title h2 mb-4">Informacion del punto de venta</h1>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button class="btn btn-brand" type="submit">Guardar cambios</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'plataforma/master.html' %}
+
+{% block title %}Entregas | ISBEN Solution{% endblock %}
+
+{% block content %}
+<section class="container-lg">
+    <p class="brand-eyebrow">Logistica</p>
+    <h1 class="brand-title h2 mb-4">Seguimiento de entregas</h1>
+    <div class="brand-card p-4">
+        <div class="table-responsive">
+            <table class="table brand-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Ruta</th>
+                        <th>Fecha estimada</th>
+                        <th>Fecha real</th>
+                        <th>Confirmacion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entrega in entregas %}
+                        <tr>
+                            <td><a href="{% url 'pedido_detalle' entrega.pedido.id %}">#{{ entrega.pedido.id }}</a></td>
+                            <td>{{ entrega.ruta.zona }} - {{ entrega.ruta.vehiculo }}</td>
+                            <td>{{ entrega.fecha_estimada|date:"d/m/Y H:i" }}</td>
+                            <td>{{ entrega.fecha_real|date:"d/m/Y H:i"|default:"Pendiente" }}</td>
+                            <td>{{ entrega.tipo_confirmacion }}</td>
+                            <td class="text-end">
+                                {% if not entrega.fecha_real %}
+                                    <a class="btn btn-sm btn-brand" href="{% url 'confirmar_entrega' entrega.id %}">Confirmar</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="6" class="text-center text-muted">No hay entregas registradas.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
