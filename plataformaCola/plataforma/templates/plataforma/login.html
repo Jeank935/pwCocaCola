@@ -5,24 +5,39 @@
 
 {% block content %}
 <section class="auth-layout">
-    <div class="brand-card auth-card p-4">
-        <img class="brand-logo brand-logo-vertical mx-auto mb-4" src="{% static 'plataforma/img/isben-logo-vertical.png' %}" alt="ISBEN Solution">
-        <p class="brand-eyebrow">Acceso comercial</p>
-        <h1 class="brand-title h3 mb-4">Iniciar sesion</h1>
-        <form method="post" novalidate>
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="mb-3">
-                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {% for error in field.errors %}
-                        <div class="text-danger small mt-1">{{ error }}</div>
+    <div class="auth-split">
+        <div class="auth-side">
+            <span class="brand-mark-badge">
+                <img class="brand-mark" src="{% static 'plataforma/img/isben-isotipo-orange.png' %}" alt="ISBEN Solution">
+            </span>
+            <div>
+                <p class="auth-side-eyebrow">Plataforma B2B</p>
+                <h1 class="auth-side-title">Gestion mayorista para comercios aliados.</h1>
+                <p class="auth-side-subtitle">Pedidos, incentivos y seguimiento de entregas en un solo panel corporativo.</p>
+            </div>
+            <p class="auth-side-footer">&copy; {% now "Y" %} ISBEN Solution</p>
+        </div>
+        <div class="auth-form">
+            <div class="auth-form-inner">
+                <p class="brand-eyebrow">Acceso comercial</p>
+                <h2 class="brand-title h3 mb-1">Iniciar sesion</h2>
+                <p class="text-muted mb-4">Ingresa con tus credenciales de comercio.</p>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
                     {% endfor %}
-                </div>
-            {% endfor %}
-            <button class="btn btn-brand w-100" type="submit">Entrar</button>
-        </form>
-        <p class="text-muted small mt-3 mb-0">No tienes cuenta? <a href="{% url 'registro' %}">Registra tu comercio</a></p>
+                    <button class="btn btn-brand w-100" type="submit">Entrar</button>
+                </form>
+                <p class="text-center text-muted small mt-3 mb-0">No tienes cuenta? <a href="{% url 'registro' %}">Registra tu comercio</a></p>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

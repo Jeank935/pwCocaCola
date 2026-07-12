@@ -1,5 +1,5 @@
 {% with estado_normalizado=estado|lower %}
-<span class="status-badge {% if estado_normalizado == 'confirmado' %}status-badge-confirmed{% elif estado_normalizado == 'pendiente' %}status-badge-pending{% else %}status-badge-neutral{% endif %}">
+<span class="status-badge {% if estado_normalizado == 'confirmado' %}status-badge-confirmed{% elif estado_normalizado == 'pendiente' %}status-badge-pending{% elif estado_normalizado == 'en camino' %}status-badge-transit{% elif estado_normalizado == 'cancelado' %}status-badge-cancelled{% else %}status-badge-neutral{% endif %}">
     <span class="status-badge-dot" aria-hidden="true"></span>
     {{ estado }}
 </span>

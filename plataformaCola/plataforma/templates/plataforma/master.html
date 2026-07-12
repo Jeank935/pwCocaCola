@@ -5,76 +5,114 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}ISBEN Solution{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'plataforma/css/brand.css' %}">
     <link rel="icon" href="{% static 'plataforma/img/isben-isotipo-light.png' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+{% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'registro' %}
     <div class="app-shell">
-        <nav class="navbar navbar-expand-lg brand-navbar sticky-top">
-            <div class="container-fluid px-3 px-lg-4">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'index' %}">
-                    <img class="brand-logo brand-logo-horizontal" src="{% static 'plataforma/img/isben-logo-horizontal.png' %}" alt="ISBEN Solution">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Abrir menu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mainNavigation">
-                    <ul class="navbar-nav ms-auto gap-lg-1">
-                        {% if request.session.usuario_id %}
-                            {% if request.session.usuario_rol|lower == 'administrador' %}
-                                <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'dashboard_administracion' %}">Dashboard</a></li>
-                                <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'reportes_administracion' %}">Reportes</a></li>
-                            {% elif request.session.usuario_rol|lower == 'logistica' %}
-                                <li class="nav-item">
-                                    <a class="nav-link brand-nav-link px-3 d-inline-flex align-items-center gap-2" href="{% url 'pedidos_logistica' %}">
-                                        Pedidos pendientes
-                                        {% if pedidos_pendientes_count %}
-                                            <span class="cart-badge">{{ pedidos_pendientes_count }}</span>
-                                        {% endif %}
-                                    </a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'catalogo' %}">Catalogo</a></li>
-                                <li class="nav-item">
-                                    <a class="nav-link brand-nav-link px-3 d-inline-flex align-items-center gap-2" href="{% if request.session.carrito_cantidad %}{% url 'pedido_paso2' %}{% else %}{% url 'historial' %}{% endif %}">
-                                        Pedidos
-                                        {% if request.session.carrito_cantidad %}
-                                            <span class="cart-badge">{{ request.session.carrito_cantidad }}</span>
-                                        {% endif %}
-                                    </a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'notificaciones' %}">Avisos</a></li>
-                                <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'reportes' %}">Reportes</a></li>
-                                <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'perfil' %}">Perfil</a></li>
+        <aside class="brand-sidebar">
+            <a class="brand-sidebar-brand" href="{% url 'index' %}">
+                <span class="brand-mark-badge">
+                    <img class="brand-mark" src="{% static 'plataforma/img/isben-isotipo-orange.png' %}" alt="ISBEN">
+                </span>
+                <span>ISBEN <em>Solution</em></span>
+            </a>
+
+            <nav class="brand-sidebar-nav">
+                {% if request.session.usuario_id %}
+                    {% if request.session.usuario_rol|lower == 'administrador' %}
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'dashboard_administracion' %}active{% endif %}" href="{% url 'dashboard_administracion' %}">
+                            <span class="brand-sidebar-dot"></span>Dashboard
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'reportes_administracion' %}active{% endif %}" href="{% url 'reportes_administracion' %}">
+                            <span class="brand-sidebar-dot"></span>Reportes
+                        </a>
+                    {% elif request.session.usuario_rol|lower == 'logistica' %}
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'pedidos_logistica' %}active{% endif %}" href="{% url 'pedidos_logistica' %}">
+                            <span class="brand-sidebar-dot"></span>
+                            <span class="flex-grow-1">Pedidos pendientes</span>
+                            {% if pedidos_pendientes_count %}
+                                <span class="cart-badge">{{ pedidos_pendientes_count }}</span>
                             {% endif %}
-                            <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'logout' %}">Salir</a></li>
-                        {% else %}
-                            <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'login' %}">Entrar</a></li>
-                            <li class="nav-item"><a class="nav-link brand-nav-link px-3" href="{% url 'registro' %}">Registro</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
+                        </a>
+                    {% else %}
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">
+                            <span class="brand-sidebar-dot"></span>Inicio
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'catalogo' %}active{% endif %}" href="{% url 'catalogo' %}">
+                            <span class="brand-sidebar-dot"></span>Catalogo
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'pedido_paso2' or request.resolver_match.url_name == 'pedido_paso3' or request.resolver_match.url_name == 'historial' or request.resolver_match.url_name == 'pedido_detalle' %}active{% endif %}" href="{% if request.session.carrito_cantidad %}{% url 'pedido_paso2' %}{% else %}{% url 'historial' %}{% endif %}">
+                            <span class="brand-sidebar-dot"></span>
+                            <span class="flex-grow-1">Pedidos</span>
+                            {% if request.session.carrito_cantidad %}
+                                <span class="cart-badge">{{ request.session.carrito_cantidad }}</span>
+                            {% endif %}
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'notificaciones' %}active{% endif %}" href="{% url 'notificaciones' %}">
+                            <span class="brand-sidebar-dot"></span>Avisos
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'incentivos' %}active{% endif %}" href="{% url 'incentivos' %}">
+                            <span class="brand-sidebar-dot"></span>Incentivos
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'reportes' %}active{% endif %}" href="{% url 'reportes' %}">
+                            <span class="brand-sidebar-dot"></span>Reportes
+                        </a>
+                        <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'perfil' %}active{% endif %}" href="{% url 'perfil' %}">
+                            <span class="brand-sidebar-dot"></span>Perfil
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </nav>
+
+            <div class="brand-sidebar-footer">
+                {% if request.session.usuario_id %}
+                    <div class="brand-sidebar-user">
+                        <span class="brand-sidebar-avatar">
+                            {% if request.session.usuario_rol|lower == 'administrador' %}AD
+                            {% elif request.session.usuario_rol|lower == 'logistica' %}LG
+                            {% else %}CO{% endif %}
+                        </span>
+                        <span class="brand-sidebar-user-role">
+                            {% if request.session.usuario_rol|lower == 'administrador' %}Administracion
+                            {% elif request.session.usuario_rol|lower == 'logistica' %}Logistica
+                            {% else %}Comercio aliado{% endif %}
+                        </span>
+                    </div>
+                    <a class="brand-sidebar-link brand-sidebar-logout" href="{% url 'logout' %}">Cerrar sesion</a>
+                {% else %}
+                    <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'login' %}"><span class="brand-sidebar-dot"></span>Entrar</a>
+                    <a class="brand-sidebar-link {% if request.resolver_match.url_name == 'registro' %}active{% endif %}" href="{% url 'registro' %}"><span class="brand-sidebar-dot"></span>Registro</a>
+                {% endif %}
             </div>
-        </nav>
+        </aside>
 
-        <main class="container-fluid px-3 px-lg-4 py-4">
-            {% if messages %}
-                <div class="container-lg px-0">
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% block content %}{% endblock %}
-        </main>
+        <div class="brand-main">
+            <main class="brand-content">
+{% endif %}
+                {% if messages %}
+                    <div class="container-lg px-0 mb-3">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% block content %}{% endblock %}
+{% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'registro' %}
+            </main>
+        </div>
     </div>
+{% endif %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    {% block extra_js %}{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
 </body>
 </html>
