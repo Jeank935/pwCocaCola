@@ -4,14 +4,18 @@
 
 {% block content %}
 <section class="container-lg">
-    <p class="brand-eyebrow">Paso 2</p>
-    <h1 class="brand-title h2 mb-4">Resumen del pedido</h1>
+    <p class="brand-eyebrow">Revisa el pedido</p>
+    <h1 class="brand-title h2 mb-3">Resumen del pedido</h1>
+    <div class="order-progress mb-4" role="progressbar" aria-label="Progreso del pedido" aria-valuenow="2" aria-valuemin="1" aria-valuemax="3">
+        <span class="order-progress-fill" style="--order-progress: 66.666%; --order-progress-start: 0.5;"></span>
+        <span class="visually-hidden">Paso 2 de 3</span>
+    </div>
     <div class="brand-card p-4">
         {% include 'plataforma/partials/resumen_pedido.html' %}
         <div class="d-flex flex-wrap justify-content-between gap-2 mt-4">
             <a class="btn btn-outline-brand" href="{% url 'catalogo' %}">Seguir comprando</a>
             <a class="btn btn-outline-danger" href="{% url 'carrito_limpiar' %}">Limpiar</a>
-            <a class="btn btn-brand ms-md-auto" href="{% url 'pedido_paso3' %}">Confirmar datos</a>
+            <a class="btn btn-brand ms-md-auto" href="{% url 'pedido_paso3' %}">Confirmar pedido</a>
         </div>
     </div>
 </section>
