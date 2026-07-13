@@ -71,16 +71,12 @@
                 <th class="text-end">${{ subtotal|floatformat:2 }}</th>
             </tr>
             <tr>
-<<<<<<< HEAD
+                <th></th>
                 <th colspan="3" class="text-end">
                     Descuento
                     {% if incentivo %}<span class="badge badge-brand">Volumen {{ descuento_volumen_pct|floatformat:0 }}%</span>{% endif %}
                     {% if bono_categoria_pct %}<span class="badge badge-accent">+{{ bono_categoria_pct|floatformat:0 }}% categoria</span>{% endif %}
                 </th>
-=======
-                <th></th>
-                <th colspan="3" class="text-end">Descuento {% if incentivo %}<span class="badge badge-brand">{{ incentivo.tipo }}</span>{% endif %}</th>
->>>>>>> cd4ef834137816fa7cc26caffef6158c18679788
                 <th class="text-end">-${{ descuento|floatformat:2 }}</th>
             </tr>
             <tr>
