@@ -31,7 +31,9 @@
                         {% if incentivo.activo %}Activo{% else %}Inactivo{% endif %}
                     </span>
                     <h2 class="h5">{{ incentivo.tipo }}</h2>
-                    <p class="text-muted mb-2">Desde ${{ incentivo.umbral_min|floatformat:2 }} hasta ${{ incentivo.umbral_max|floatformat:2 }}</p>
+                    <p class="text-muted mb-2">
+                        Desde ${{ incentivo.umbral_min|floatformat:2 }}{% if incentivo.umbral_max < 1000000 %} hasta ${{ incentivo.umbral_max|floatformat:2 }}{% endif %}
+                    </p>
                     <strong class="text-danger">{{ incentivo.descuento_pct|floatformat:2 }}% de descuento</strong>
                 </article>
             </div>
