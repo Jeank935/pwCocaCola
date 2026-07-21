@@ -120,7 +120,6 @@ class Entrega(models.Model):
         return "%s %s" % (self.fecha_estimada, self.tipo_confirmacion)
 
 
-# --- Sprint 4: Motor de Incentivos (categoria comercial, descuentos por volumen y frecuencia) ---
 
 CATEGORIA_ESTANDAR = "Estandar"
 CATEGORIA_PREFERENTE = "Preferente"
